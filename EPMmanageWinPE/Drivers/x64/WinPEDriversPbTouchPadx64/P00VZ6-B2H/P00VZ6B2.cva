@@ -1,0 +1,141 @@
+﻿[CVA File Information]
+CVATimeStamp=20200728T230344
+CVASyntaxVersion=2.1A9
+
+[Software Title]
+US=Intel Serial IO Driver for Comet Lake
+
+[US.Software Description]
+This package contains the driver that enables the Intel Serial IO Drivers to be used with supported notebook models that are running a supported operation system. Intel Serial IO Bus Drivers software stack provides drivers for these IO modules to control the serial interfaces and sensors that are connected in the Intel Serial IO buses.
+
+[General]
+PN=P00VZ6-B2H
+Version=30.100.2020.7
+Revision=B
+Pass=1
+Type=Driver
+Category=Driver - Chipset
+TargetPartition=
+SystemMustBeRebooted=1
+VendorName=Intel
+VendorVersion=30.100.2020.7
+
+[SupportedLanguages]
+Languages=GLOBAL
+Countries=GBL
+
+[ProfessionalInnovations]
+HPPI=No
+LearnMore=
+
+[Softpaq]
+SoftpaqNumber=
+SupersededSoftpaqNumber=
+SoftPaqMD5=
+
+[DetailFileInformation]
+iaLPSS2_I2C_CNL.sys=<WINSYSDIR>\DriverStore\FileRepository\ialpss2_i2c_cnl.inf_amd64_666eecf21665eb26\,0x001E,0x0064,0x07E4,0x0007,WT64
+iaLPSS2_GPIO2_CNL.sys=<WINSYSDIR>\DriverStore\FileRepository\ialpss2_gpio2_cnl.inf_amd64_d920c2a844f26eba\,0x001E,0x0064,0x07E4,0x0007,WT64
+iaLPSS2_I2C_CNL.sys=<WINSYSDIR>\DriverStore\FileRepository\ialpss2_i2c_cnl.inf_amd64_666eecf21665eb26\,0x001E,0x0064,0x07E4,0x0007,WTIOT64
+iaLPSS2_GPIO2_CNL.sys=<WINSYSDIR>\DriverStore\FileRepository\ialpss2_gpio2_cnl.inf_amd64_d920c2a844f26eba\,0x001E,0x0064,0x07E4,0x0007,WTIOT64
+
+[Devices_INFPath]
+WT64_INFPath=src\drivers\x64
+WTIOT64_INFPath=src\drivers\x64
+
+[Devices]
+ACPI\INT34BB = "Intel(R) Serial IO GPIO Host Controller - INT34BB"
+ACPI\INT3450 = "Intel(R) Serial IO GPIO Host Controller - INT3450"
+PCI\VEN_8086&DEV_9DE8 = "Intel(R) Serial IO I2C Host Controller - 9DE8"
+PCI\VEN_8086&DEV_9DE9 = "Intel(R) Serial IO I2C Host Controller - 9DE9"
+PCI\VEN_8086&DEV_9DEA = "Intel(R) Serial IO I2C Host Controller - 9DEA"
+PCI\VEN_8086&DEV_9DEB = "Intel(R) Serial IO I2C Host Controller - 9DEB"
+PCI\VEN_8086&DEV_9DC5 = "Intel(R) Serial IO I2C Host Controller - 9DC5"
+PCI\VEN_8086&DEV_9DC6 = "Intel(R) Serial IO I2C Host Controller - 9DC6"
+PCI\VEN_8086&DEV_A368 = "Intel(R) Serial IO I2C Host Controller - A368"
+PCI\VEN_8086&DEV_A369 = "Intel(R) Serial IO I2C Host Controller - A369"
+PCI\VEN_8086&DEV_A36A = "Intel(R) Serial IO I2C Host Controller - A36A"
+PCI\VEN_8086&DEV_A36B = "Intel(R) Serial IO I2C Host Controller - A36B"
+PCI\VEN_8086&DEV_02E8 = "Intel(R) Serial IO I2C Host Controller - 02E8"
+PCI\VEN_8086&DEV_02E9 = "Intel(R) Serial IO I2C Host Controller - 02E9"
+PCI\VEN_8086&DEV_02EA = "Intel(R) Serial IO I2C Host Controller - 02EA"
+PCI\VEN_8086&DEV_02EB = "Intel(R) Serial IO I2C Host Controller - 02EB"
+PCI\VEN_8086&DEV_02C5 = "Intel(R) Serial IO I2C Host Controller - 02C5"
+PCI\VEN_8086&DEV_02C6 = "Intel(R) Serial IO I2C Host Controller - 02C6"
+PCI\VEN_8086&DEV_06E8 = "Intel(R) Serial IO I2C Host Controller - 06E8"
+PCI\VEN_8086&DEV_06E9 = "Intel(R) Serial IO I2C Host Controller - 06E9"
+PCI\VEN_8086&DEV_06EA = "Intel(R) Serial IO I2C Host Controller - 06EA"
+PCI\VEN_8086&DEV_06EB = "Intel(R) Serial IO I2C Host Controller - 06EB"
+PCI\VEN_8086&DEV_9DAA = "Intel(R) Serial IO SPI Host Controller - 9DAA"
+PCI\VEN_8086&DEV_9DAB = "Intel(R) Serial IO SPI Host Controller - 9DAB"
+PCI\VEN_8086&DEV_9DFB = "Intel(R) Serial IO SPI Host Controller - 9DFB"
+PCI\VEN_8086&DEV_A32A = "Intel(R) Serial IO SPI Host Controller - A32A"
+PCI\VEN_8086&DEV_A32B = "Intel(R) Serial IO SPI Host Controller - A32B"
+PCI\VEN_8086&DEV_A37B = "Intel(R) Serial IO SPI Host Controller - A37B"
+PCI\VEN_8086&DEV_02AA = "Intel(R) Serial IO SPI Host Controller - 02AA"
+PCI\VEN_8086&DEV_02AB = "Intel(R) Serial IO SPI Host Controller - 02AB"
+PCI\VEN_8086&DEV_02FB = "Intel(R) Serial IO SPI Host Controller - 02FB"
+PCI\VEN_8086&DEV_06AA = "Intel(R) Serial IO SPI Host Controller - 06AA"
+PCI\VEN_8086&DEV_06AB = "Intel(R) Serial IO SPI Host Controller - 06AB"
+PCI\VEN_8086&DEV_06FB = "Intel(R) Serial IO SPI Host Controller - 06FB"
+PCI\VEN_8086&DEV_9DA8 = "Intel(R) Serial IO UART Host Controller - 9DA8"
+PCI\VEN_8086&DEV_9DA9 = "Intel(R) Serial IO UART Host Controller - 9DA9"
+PCI\VEN_8086&DEV_9DC7 = "Intel(R) Serial IO UART Host Controller - 9DC7"
+PCI\VEN_8086&DEV_A328 = "Intel(R) Serial IO UART Host Controller - A328"
+PCI\VEN_8086&DEV_A329 = "Intel(R) Serial IO UART Host Controller - A329"
+PCI\VEN_8086&DEV_A347 = "Intel(R) Serial IO UART Host Controller - A347"
+PCI\VEN_8086&DEV_02A8 = "Intel(R) Serial IO UART Host Controller - 02A8"
+PCI\VEN_8086&DEV_02A9 = "Intel(R) Serial IO UART Host Controller - 02A9"
+PCI\VEN_8086&DEV_02C7 = "Intel(R) Serial IO UART Host Controller - 02C7"
+PCI\VEN_8086&DEV_06A8 = "Intel(R) Serial IO UART Host Controller - 06A8"
+PCI\VEN_8086&DEV_06A9 = "Intel(R) Serial IO UART Host Controller - 06A9"
+PCI\VEN_8086&DEV_06C7 = "Intel(R) Serial IO UART Host Controller - 06C7"
+
+[System Information]
+SysId01=0x86EA
+SysName01=Comm - Placeholder
+SysId02=0x8723
+SysName02= 830 Notebook PC,840 Notebook PC,HP EliteBook 830 G7 Notebook PC,HP EliteBook 840 G7 Notebook PC,HP ZBook Firefly 14 G7 Mobile Workstatio,14 Mobile Workstation
+SysId03=0x8724
+SysName03= 14 Mobile Workstation,15 Mobile Workstation,850 Notebook PC,HP EliteBook 850 G7 Notebook PC,HP ZBook Firefly 14 G7 Mobile Workstatio,HP ZBook Firefly 15 G7 Mobile Workstatio
+SysId04=0x8725
+SysName04= 830 Notebook PC,HP EliteBook x360 830 G7 Notebook PC
+SysId05=0x8736
+SysName05= Create Notebook PC,Studio Mobile Workstation,HP ZBook Create G7 Notebook PC,HP ZBook Studio G7 Mobile Workstation
+SysId06=0x873B
+SysName06= 630 Notebook PC,HP ProBook x360 630 G7 Notebook PC
+SysId07=0x876D
+SysName07= 1030 Notebook PC,1040 Notebook PC,HP EliteBook x360 1030 G7 Notebook PC,HP EliteBook x360 1040 G7 Notebook PC
+SysId08=0x8780
+SysName08= 17 Mobile Workstation,HP ZBook Fury 17 G7 Mobile Workstation
+SysId09=0x8783
+SysName09= 15 Mobile Workstation,HP ZBook Fury 15 G7 Mobile Workstation
+SysId10=0x87A2
+SysName10=HP Elite x2 G7 Tablet
+SysId11=0x87EC
+SysName11= Power Mobile Workstation,HP ZBook Power G7 Mobile Workstation
+SysId12=0x882C
+SysName12= 640 Notebook PC,HP ProBook 640 G7 Notebook PC
+SysId13=0x882D
+SysName13= 650 Notebook PC,HP ProBook 650 G7 Notebook PC
+
+[Operating Systems]
+WT64=OEM
+WTIOT64=OEM
+
+[ReturnCode]
+0:SUCCESS:NOREBOOT=The Intel Serial IO Driver installed successfully.
+3010:SUCCESS:REBOOT=The Intel Serial IO Driver installed successfully. Reboot Required.
+
+[Install Execution]
+Install=install.cmd
+SilentInstall="install.cmd"
+
+[Private]
+Private_SSMCompliant=1
+DPB_Compliant=1
+
+[CVAToolDocumentStamp]
+Generate By CVA Tool V1.1.0.5; Spec V2.1 A9 on 7/28/2020 11:03:44 PM
+Copyright © 2020 HP Development Company, L.P.
+
