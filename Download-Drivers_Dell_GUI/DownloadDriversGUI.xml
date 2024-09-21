@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type='text/xsl' href='style.xsl'?>
+<Drivers>
+  <Menu>
+    <Windows>21h1</Windows>
+    <Tag>21h2.1</Tag>
+    <Folder>c:\temp</Folder>
+  </Menu>
+  <HPSSM>
+    <Modele>Elite Dragonfly (861F)</Modele>
+    <Modele>Elite Dragonfly G2 (8716)</Modele>
+    <Modele>EliteBook 830 G8 (880D)</Modele>
+    <Modele>EliteBook 840 G1 (198F)</Modele>
+    <Modele>EliteBook 840 G2 (2216)</Modele>
+    <Modele>EliteBook 840 G3 (8079)</Modele>
+    <Modele>EliteBook 840 G5 (83B2)</Modele>
+    <Modele>EliteBook 840 G6 (8079)</Modele>
+    <Modele>EliteBook 840 G6 (8549)</Modele>
+    <Modele>EliteBook 840 G7 (8723)</Modele>
+    <Modele>EliteBook 840 G8 (880D)</Modele>
+    <Modele>EliteBook 850 G3 (8079)</Modele>
+    <Modele>EliteBook 850 G5 (83B2)</Modele>
+    <Modele>Elitebook 850 G6 (8549)</Modele>
+    <Modele>EliteBook 850 G7 (8724)</Modele>
+    <Modele>EliteBook 850 G8 (8846)</Modele>
+    <Modele>EliteDesk 800 G2 SFF (8054)</Modele>
+    <Modele>EliteDesk 800 G3 SFF (8299)</Modele>
+    <Modele>EliteDesk 800 G4 SFF (83E1)</Modele>
+    <Modele>EliteDesk 800 G5 SFF (8592)</Modele>
+    <Modele>EliteDesk 800 G6 Mini (8710)</Modele>
+    <Modele>EliteDesk 800 G6 SFF (870C)</Modele>
+    <Modele>EliteOne 800 G1 Aio (18E6)</Modele>
+    <Modele>EliteOne 800 G2 AiO (8058)</Modele>
+    <Modele>EliteOne 800 G3 AiO (829B)</Modele>
+    <Modele>EliteOne 800 G4 AiO (83E4)</Modele>
+    <Modele>Engage Flex Mini Retail System (8715)</Modele>
+    <Modele>Engage Flex Pro-C (8476)</Modele>
+    <Modele>MP9 G4 Retail System (83EF)</Modele>
+    <Modele>ProBook 650 G1 (1993)</Modele>
+    <Modele>ProBook 6570b (17AB)</Modele>
+    <Modele>ProDesk 600 G1 TWR (18E7)</Modele>
+    <Modele>rp5800 (1632)</Modele>
+    <Modele>RP5810 (2175)</Modele>
+    <Modele>Z420 Workstation (1589)</Modele>
+    <Modele>Z440 Workstation (212B)</Modele>
+    <Modele>Z620 Workstation (158A)</Modele>
+    <Modele>ZBook 15 G6 (860F)</Modele>
+    <Modele>ZBook Power G8 (888D)</Modele>
+    <Modele>ZBook Studio G3 (80D4)</Modele>
+    <Modele>ZBook Studio G4 (826B)</Modele>
+    <Modele>ZBook Studio G5 (8427)</Modele>
+    <Modele>ZBook Studio G7 (8736)</Modele>
+    <Modele>ZBook Studio x360 G5 (844F)</Modele>
+  </HPSSM>
+  <MICROSOFT>
+    <Modele>Surface Book 2</Modele>
+    <Modele>Surface Pro 3</Modele>
+    <Modele>Surface Pro 4</Modele>
+    <Modele>Surface Pro 5</Modele>
+    <Modele>Surface Pro 6</Modele>
+    <Modele>Surface Pro 7</Modele>
+  </MICROSOFT>
+</Drivers>
