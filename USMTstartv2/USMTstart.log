@@ -1,0 +1,366 @@
+05/10/2016 18:53:11 | PRO-LAP-59-11 | ##############################################################################
+05/10/2016 18:53:11 | PRO-LAP-59-11 | PathUSMT=F:\USMTstartv2\USMT
+05/10/2016 18:53:11 | PRO-LAP-59-11 | PathOld=F:\USMTstartv2\USMT
+05/10/2016 18:53:11 | PRO-LAP-59-11 | Trace32i=F:\USMTstartv2\Tools\trace32.exe
+05/10/2016 18:53:11 | PRO-LAP-59-11 | MigViewi=F:\USMTstartv2\Tools\MigViewer.exe
+05/10/2016 18:53:11 | PRO-LAP-59-11 | CBackupi=F:\USMTstartv2\Tools\CustomBackup.vbs
+05/10/2016 18:53:11 | PRO-LAP-59-11 | CRestorei=F:\USMTstartv2\Tools\CustomRestore.vbs
+05/10/2016 18:53:11 | PRO-LAP-59-11 | EDrives=F:\USMTstartv2\Tools\USMTExcludeDrives.vbs
+05/10/2016 18:53:11 | PRO-LAP-59-11 | EDrivesXML=F:\USMTstartv2\Tools\USMTExcludeDrives.xml
+05/10/2016 18:53:11 | PRO-LAP-59-11 | VersionOS=10.0.14936
+05/10/2016 18:53:11 | PRO-LAP-59-11 | PathScanstate=F:\USMTstartv2\Tools\USMT10\amd64
+05/10/2016 18:53:11 | PRO-LAP-59-11 | Check : F:\USMTstartv2\USMT\flag.txt
+05/10/2016 18:53:11 | PRO-LAP-59-11 | ComputerBackup=
+05/10/2016 18:53:12 | PRO-LAP-59-11 | ##############################################################################
+05/10/2016 18:53:12 | PRO-LAP-59-11 |  
+09/10/2016 13:51:35 | 12345QBC | ##############################################################################
+09/10/2016 13:51:35 | 12345QBC | PathUSMT=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+09/10/2016 13:51:35 | 12345QBC | PathOld=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+09/10/2016 13:51:35 | 12345QBC | Trace32i=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\trace32.exe
+09/10/2016 13:51:35 | 12345QBC | MigViewi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\MigViewer.exe
+09/10/2016 13:51:35 | 12345QBC | CBackupi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs
+09/10/2016 13:51:35 | 12345QBC | CRestorei=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs
+09/10/2016 13:51:35 | 12345QBC | EDrives=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs
+09/10/2016 13:51:35 | 12345QBC | EDrivesXML=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+09/10/2016 13:51:35 | 12345QBC | VersionOS=6.1.7601
+09/10/2016 13:51:35 | 12345QBC | PathScanstate=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86
+09/10/2016 13:51:35 | 12345QBC | Check : \\sccm.wuibaille.fr\dml\USMTstartv2\USMT\flag.txt
+09/10/2016 13:51:35 | 12345QBC | ComputerBackup=
+09/10/2016 13:51:35 | 12345QBC | ##############################################################################
+09/10/2016 13:51:35 | 12345QBC |  
+09/10/2016 14:22:53 | 12345QBC | ##############################################################################
+09/10/2016 14:22:54 | 12345QBC | PathUSMT=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+09/10/2016 14:22:54 | 12345QBC | PathOld=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+09/10/2016 14:22:54 | 12345QBC | Trace32i=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\trace32.exe
+09/10/2016 14:22:54 | 12345QBC | MigViewi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\MigViewer.exe
+09/10/2016 14:22:54 | 12345QBC | CBackupi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs
+09/10/2016 14:22:54 | 12345QBC | CRestorei=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs
+09/10/2016 14:22:54 | 12345QBC | EDrives=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs
+09/10/2016 14:22:54 | 12345QBC | EDrivesXML=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+09/10/2016 14:22:54 | 12345QBC | VersionOS=6.1.7601
+09/10/2016 14:22:54 | 12345QBC | PathScanstate=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86
+09/10/2016 14:22:54 | 12345QBC | Check : \\sccm.wuibaille.fr\dml\USMTstartv2\USMT\flag.txt
+09/10/2016 14:22:54 | 12345QBC | ComputerBackup=
+09/10/2016 14:22:54 | 12345QBC | ##############################################################################
+09/10/2016 14:22:54 | 12345QBC |  
+09/10/2016 14:23:00 | 12345QBC | ComputerBackup=33646BLR041
+09/10/2016 14:23:00 | 12345QBC | >>>> 33646BLR041 TO 12345QBC <<<<
+09/10/2016 14:23:00 | 12345QBC | "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\loadstate.exe" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\33646BLR041" /v:13 /c /lac /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\MigApp.xml" /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\Miguser.xml"  /l:"\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\33646BLR041\USMTRestore.log"
+09/10/2016 15:14:07 | 12345QBC | End USMT = 0
+09/10/2016 15:14:07 | 12345QBC | cmd /c cscript "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\33646BLR041"
+09/10/2016 15:15:26 | 33646BLR041 | End Custom = 8
+09/10/2016 15:15:26 | 12345QBC | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\tools\commandeapres.bat" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\33646BLR041"
+09/10/2016 15:15:41 | 12345QBC | exitcode=16
+09/10/2016 15:20:25 | 12345QBC | ##############################################################################
+09/10/2016 15:20:25 | 12345QBC | PathUSMT=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+09/10/2016 15:20:25 | 12345QBC | PathOld=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+09/10/2016 15:20:25 | 12345QBC | Trace32i=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\trace32.exe
+09/10/2016 15:20:25 | 12345QBC | MigViewi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\MigViewer.exe
+09/10/2016 15:20:25 | 12345QBC | CBackupi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs
+09/10/2016 15:20:25 | 12345QBC | CRestorei=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs
+09/10/2016 15:20:26 | 12345QBC | EDrives=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs
+09/10/2016 15:20:26 | 12345QBC | EDrivesXML=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+09/10/2016 15:20:26 | 12345QBC | VersionOS=6.1.7601
+09/10/2016 15:20:26 | 12345QBC | PathScanstate=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86
+09/10/2016 15:20:26 | 12345QBC | Check : \\sccm.wuibaille.fr\dml\USMTstartv2\USMT\flag.txt
+09/10/2016 15:20:26 | 12345QBC | ComputerBackup=
+09/10/2016 15:20:26 | 12345QBC | ##############################################################################
+09/10/2016 15:20:26 | 12345QBC |  
+09/10/2016 15:20:31 | 12345QBC | ComputerBackup=33646BLR035
+09/10/2016 15:20:31 | 12345QBC | >>>> 33646BLR035 TO 12345QBC <<<<
+09/10/2016 15:20:31 | 12345QBC | "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\loadstate.exe" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\33646BLR035" /v:13 /c /lac /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\MigApp.xml" /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\Miguser.xml"  /l:"\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\33646BLR035\USMTRestore.log"
+09/10/2016 15:21:27 | 12345QBC | End USMT = 71
+09/10/2016 15:21:27 | 12345QBC | cmd /c cscript "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\33646BLR035"
+09/10/2016 15:21:44 | 33646BLR035 | End Custom = 10
+09/10/2016 15:21:44 | 12345QBC | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\tools\commandeapres.bat" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\33646BLR035"
+09/10/2016 15:22:16 | 12345QBC | exitcode=16
+09/10/2016 22:44:34 | 20051-TESTXP | ##############################################################################
+09/10/2016 22:44:34 | 20051-TESTXP | PathUSMT=\\sccm.labosd.lan\dml\USMTstartv2\USMT
+09/10/2016 22:44:34 | 20051-TESTXP | PathOld=\\sccm.labosd.lan\dml\USMTstartv2\USMT
+09/10/2016 22:44:34 | 20051-TESTXP | Trace32i=\\sccm.labosd.lan\dml\USMTstartv2\Tools\trace32.exe
+09/10/2016 22:44:34 | 20051-TESTXP | MigViewi=\\sccm.labosd.lan\dml\USMTstartv2\Tools\MigViewer.exe
+09/10/2016 22:44:34 | 20051-TESTXP | CBackupi=\\sccm.labosd.lan\dml\USMTstartv2\Tools\CustomBackup.vbs
+09/10/2016 22:44:34 | 20051-TESTXP | CRestorei=\\sccm.labosd.lan\dml\USMTstartv2\Tools\CustomRestore.vbs
+09/10/2016 22:44:34 | 20051-TESTXP | EDrives=\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs
+09/10/2016 22:44:34 | 20051-TESTXP | EDrivesXML=\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+09/10/2016 22:44:34 | 20051-TESTXP | VersionOS=5.1.2600
+09/10/2016 22:44:34 | 20051-TESTXP | PathScanstate=\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMT562\x86
+09/10/2016 22:44:34 | 20051-TESTXP | Check : \\sccm.labosd.lan\dml\USMTstartv2\USMT\flag.txt
+09/10/2016 22:44:34 | 20051-TESTXP | ComputerBackup=
+09/10/2016 22:44:34 | 20051-TESTXP | ##############################################################################
+09/10/2016 22:44:34 | 20051-TESTXP |  
+09/10/2016 22:44:41 | 20051-TESTXP | Start="\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs"
+09/10/2016 22:44:41 | 20051-TESTXP | Start="\\sccm.labosd.lan\dml\USMTstartv2\tools\commandeavant.bat" "\\sccm.labosd.lan\dml\USMTstartv2\USMT\20051-TESTXP"
+09/10/2016 23:09:31 | 20051-TESTXP | exitcode=0
+09/10/2016 23:09:31 | 20051-TESTXP | Not Exist=\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMT562\x86\config.xml
+09/10/2016 23:09:31 | 20051-TESTXP | Not Exist=\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+09/10/2016 23:09:31 | 20051-TESTXP | "\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMT562\x86\scanstate.exe" "\\sccm.labosd.lan\dml\USMTstartv2\USMT\20051-TESTXP" /v:13 /c /o /ue:import_ad /ue:Proservia1 /localonly /i:"\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMT562\x86\MigApp.xml" /i:"\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMT562\x86\Miguser.xml" /l:"\\sccm.labosd.lan\dml\USMTstartv2\USMT\20051-TESTXP\USMTBackup.log"
+09/10/2016 23:14:22 | 20051-TESTXP | End USMT = 0
+09/10/2016 23:14:22 | 20051-TESTXP | cmd /c cscript "\\sccm.labosd.lan\dml\USMTstartv2\Tools\CustomBackup.vbs" "\\sccm.labosd.lan\dml\USMTstartv2\USMT\20051-TESTXP" PDV,Administrateur,
+09/10/2016 23:14:50 | 20051-TESTXP | End Custom = 0
+09/10/2016 23:17:12 | 12345QBC | ##############################################################################
+09/10/2016 23:17:12 | 12345QBC | PathUSMT=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+09/10/2016 23:17:12 | 12345QBC | PathOld=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+09/10/2016 23:17:12 | 12345QBC | Trace32i=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\trace32.exe
+09/10/2016 23:17:12 | 12345QBC | MigViewi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\MigViewer.exe
+09/10/2016 23:17:12 | 12345QBC | CBackupi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs
+09/10/2016 23:17:12 | 12345QBC | CRestorei=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs
+09/10/2016 23:17:12 | 12345QBC | EDrives=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs
+09/10/2016 23:17:12 | 12345QBC | EDrivesXML=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+09/10/2016 23:17:12 | 12345QBC | VersionOS=6.1.7601
+09/10/2016 23:17:12 | 12345QBC | PathScanstate=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86
+09/10/2016 23:17:12 | 12345QBC | Check : \\sccm.wuibaille.fr\dml\USMTstartv2\USMT\flag.txt
+09/10/2016 23:17:12 | 12345QBC | ComputerBackup=20051-TESTXP
+09/10/2016 23:17:12 | 12345QBC | ##############################################################################
+09/10/2016 23:17:12 | 12345QBC |  
+09/10/2016 23:17:14 | 12345QBC | ComputerBackup=20051-TESTXP
+09/10/2016 23:17:14 | 12345QBC | >>>> 20051-TESTXP TO 12345QBC <<<<
+09/10/2016 23:17:14 | 12345QBC | "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\loadstate.exe" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" /v:13 /c /lac /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\MigApp.xml" /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\Miguser.xml"  /l:"\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP\USMTRestore.log"
+09/10/2016 23:19:41 | 12345QBC | End USMT = 0
+09/10/2016 23:19:41 | 12345QBC | cmd /c cscript "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+09/10/2016 23:19:57 | 20051-TESTXP | End Custom = 6
+09/10/2016 23:19:57 | 12345QBC | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\tools\commandeapres.bat" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+09/10/2016 23:38:26 | 12345QBC | exitcode=259
+10/10/2016 00:08:38 | 20051-TESTXP | ##############################################################################
+10/10/2016 00:08:38 | 20051-TESTXP | PathUSMT=\\sccm.labosd.lan\dml\USMTstartv2\USMT
+10/10/2016 00:08:38 | 20051-TESTXP | PathOld=\\sccm.labosd.lan\dml\USMTstartv2\USMT
+10/10/2016 00:08:38 | 20051-TESTXP | Trace32i=\\sccm.labosd.lan\dml\USMTstartv2\Tools\trace32.exe
+10/10/2016 00:08:38 | 20051-TESTXP | MigViewi=\\sccm.labosd.lan\dml\USMTstartv2\Tools\MigViewer.exe
+10/10/2016 00:08:38 | 20051-TESTXP | CBackupi=\\sccm.labosd.lan\dml\USMTstartv2\Tools\CustomBackup.vbs
+10/10/2016 00:08:38 | 20051-TESTXP | CRestorei=\\sccm.labosd.lan\dml\USMTstartv2\Tools\CustomRestore.vbs
+10/10/2016 00:08:38 | 20051-TESTXP | EDrives=\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs
+10/10/2016 00:08:38 | 20051-TESTXP | EDrivesXML=\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+10/10/2016 00:08:38 | 20051-TESTXP | VersionOS=5.1.2600
+10/10/2016 00:08:38 | 20051-TESTXP | PathScanstate=\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMT562\x86
+10/10/2016 00:08:38 | 20051-TESTXP | Check : \\sccm.labosd.lan\dml\USMTstartv2\USMT\flag.txt
+10/10/2016 00:08:38 | 20051-TESTXP | ComputerBackup=
+10/10/2016 00:08:40 | 20051-TESTXP | ##############################################################################
+10/10/2016 00:08:40 | 20051-TESTXP |  
+10/10/2016 00:08:44 | 20051-TESTXP | Start="\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs"
+10/10/2016 00:08:45 | 20051-TESTXP | Start="\\sccm.labosd.lan\dml\USMTstartv2\tools\commandeavant.bat" "\\sccm.labosd.lan\dml\USMTstartv2\USMT\20051-TESTXP"
+10/10/2016 00:09:33 | 20051-TESTXP | exitcode=-1073741510
+10/10/2016 00:09:33 | 20051-TESTXP | Not Exist=\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMT562\x86\config.xml
+10/10/2016 00:09:33 | 20051-TESTXP | Not Exist=\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+10/10/2016 00:09:33 | 20051-TESTXP | "\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMT562\x86\scanstate.exe" "\\sccm.labosd.lan\dml\USMTstartv2\USMT\20051-TESTXP" /v:13 /c /o /ue:Administrateur /ue:import_ad /ue:Proservia1 /localonly /i:"\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMT562\x86\MigApp.xml" /i:"\\sccm.labosd.lan\dml\USMTstartv2\Tools\USMT562\x86\Miguser.xml" /l:"\\sccm.labosd.lan\dml\USMTstartv2\USMT\20051-TESTXP\USMTBackup.log"
+10/10/2016 00:22:52 | 12345QBC | ##############################################################################
+10/10/2016 00:22:52 | 12345QBC | PathUSMT=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+10/10/2016 00:22:52 | 12345QBC | PathOld=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+10/10/2016 00:22:52 | 12345QBC | Trace32i=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\trace32.exe
+10/10/2016 00:22:52 | 12345QBC | MigViewi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\MigViewer.exe
+10/10/2016 00:22:52 | 12345QBC | CBackupi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs
+10/10/2016 00:22:52 | 12345QBC | CRestorei=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs
+10/10/2016 00:22:52 | 12345QBC | EDrives=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs
+10/10/2016 00:22:52 | 12345QBC | EDrivesXML=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+10/10/2016 00:22:52 | 12345QBC | VersionOS=6.1.7601
+10/10/2016 00:22:52 | 12345QBC | PathScanstate=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86
+10/10/2016 00:22:52 | 12345QBC | Check : \\sccm.wuibaille.fr\dml\USMTstartv2\USMT\flag.txt
+10/10/2016 00:22:52 | 12345QBC | ComputerBackup=20051-TESTXP
+10/10/2016 00:22:52 | 12345QBC | ##############################################################################
+10/10/2016 00:22:52 | 12345QBC |  
+10/10/2016 00:22:54 | 12345QBC | ComputerBackup=20051-TESTXP
+10/10/2016 00:22:54 | 12345QBC | >>>> 20051-TESTXP TO 12345QBC <<<<
+10/10/2016 00:22:54 | 12345QBC | "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\loadstate.exe" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" /v:13 /c /lac /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\MigApp.xml" /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\Miguser.xml"  /l:"\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP\USMTRestore.log"
+10/10/2016 00:25:11 | 12345QBC | End USMT = 0
+10/10/2016 00:25:11 | 12345QBC | cmd /c cscript "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+10/10/2016 00:25:20 | 20051-TESTXP | End Custom = 0
+10/10/2016 00:25:20 | 12345QBC | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\tools\commandeapres.bat" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+10/10/2016 00:28:46 | 12345QBC | exitcode=2
+10/10/2016 00:55:48 | 12345QBC | ComputerBackup=20051-TESTXP
+10/10/2016 00:55:48 | 12345QBC | >>>> 20051-TESTXP TO 12345QBC <<<<
+10/10/2016 00:55:48 | 12345QBC | "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\loadstate.exe" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" /v:13 /c /lac /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\MigApp.xml" /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\Miguser.xml"  /l:"\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP\USMTRestore.log"
+10/10/2016 00:55:56 | 12345QBC | End USMT = -1073741510
+10/10/2016 00:55:56 | 12345QBC | cmd /c cscript "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+10/10/2016 00:56:05 | 20051-TESTXP | End Custom = 0
+10/10/2016 00:56:05 | 12345QBC | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\tools\commandeapres.bat" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+10/10/2016 00:56:37 | 12345QBC | exitcode=2
+10/10/2016 01:33:56 | 20051-TESTXP | ##############################################################################
+10/10/2016 01:33:56 | 20051-TESTXP | PathUSMT=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+10/10/2016 01:33:56 | 20051-TESTXP | PathOld=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+10/10/2016 01:33:56 | 20051-TESTXP | Trace32i=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\trace32.exe
+10/10/2016 01:33:56 | 20051-TESTXP | MigViewi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\MigViewer.exe
+10/10/2016 01:33:56 | 20051-TESTXP | CBackupi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs
+10/10/2016 01:33:56 | 20051-TESTXP | CRestorei=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs
+10/10/2016 01:33:56 | 20051-TESTXP | EDrives=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs
+10/10/2016 01:33:56 | 20051-TESTXP | EDrivesXML=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+10/10/2016 01:33:56 | 20051-TESTXP | VersionOS=5.1.2600
+10/10/2016 01:33:56 | 20051-TESTXP | PathScanstate=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86
+10/10/2016 01:33:56 | 20051-TESTXP | Check : \\sccm.wuibaille.fr\dml\USMTstartv2\USMT\flag.txt
+10/10/2016 01:33:56 | 20051-TESTXP | ComputerBackup=
+10/10/2016 01:33:56 | 20051-TESTXP | ##############################################################################
+10/10/2016 01:33:56 | 20051-TESTXP |  
+10/10/2016 01:34:01 | 20051-TESTXP | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs"
+10/10/2016 01:34:02 | 20051-TESTXP | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\tools\commandeavant.bat" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+10/10/2016 01:34:07 | 20051-TESTXP | exitcode=-1073741510
+10/10/2016 01:35:23 | 20051-TESTXP | ##############################################################################
+10/10/2016 01:35:23 | 20051-TESTXP | PathUSMT=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+10/10/2016 01:35:23 | 20051-TESTXP | PathOld=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+10/10/2016 01:35:23 | 20051-TESTXP | Trace32i=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\trace32.exe
+10/10/2016 01:35:23 | 20051-TESTXP | MigViewi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\MigViewer.exe
+10/10/2016 01:35:23 | 20051-TESTXP | CBackupi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs
+10/10/2016 01:35:23 | 20051-TESTXP | CRestorei=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs
+10/10/2016 01:35:23 | 20051-TESTXP | EDrives=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs
+10/10/2016 01:35:23 | 20051-TESTXP | EDrivesXML=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+10/10/2016 01:35:23 | 20051-TESTXP | VersionOS=5.1.2600
+10/10/2016 01:35:23 | 20051-TESTXP | PathScanstate=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86
+10/10/2016 01:35:23 | 20051-TESTXP | Check : \\sccm.wuibaille.fr\dml\USMTstartv2\USMT\flag.txt
+10/10/2016 01:35:23 | 20051-TESTXP | ComputerBackup=20051-TESTXP
+10/10/2016 01:35:23 | 20051-TESTXP | ##############################################################################
+10/10/2016 01:35:23 | 20051-TESTXP |  
+10/10/2016 01:35:26 | 20051-TESTXP | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs"
+10/10/2016 01:35:26 | 20051-TESTXP | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\tools\commandeavant.bat" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+10/10/2016 01:35:31 | 20051-TESTXP | exitcode=-1073741510
+10/10/2016 01:35:31 | 20051-TESTXP | Not Exist=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\config.xml
+10/10/2016 01:35:31 | 20051-TESTXP | Not Exist=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+10/10/2016 01:35:31 | 20051-TESTXP | "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\scanstate.exe" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" /v:13 /c /o /ue:Administrateur /ue:import_ad /ue:Proservia1 /localonly /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\MigApp.xml" /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\Miguser.xml" /l:"\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP\USMTBackup.log"
+10/10/2016 01:35:40 | 20051-TESTXP | End USMT = 2
+10/10/2016 01:35:40 | 20051-TESTXP | cmd /c cscript "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" PDV,
+10/10/2016 01:35:46 | 20051-TESTXP | End Custom = -1073741510
+10/10/2016 01:35:53 | 20051-TESTXP | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs"
+10/10/2016 01:35:54 | 20051-TESTXP | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\tools\commandeavant.bat" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+10/10/2016 01:36:33 | 20051-TESTXP | exitcode=-1073741510
+10/10/2016 01:36:33 | 20051-TESTXP | Not Exist=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\config.xml
+10/10/2016 01:36:33 | 20051-TESTXP | Not Exist=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+10/10/2016 01:36:33 | 20051-TESTXP | "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\scanstate.exe" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" /v:13 /c /o /ue:Administrateur /ue:import_ad /ue:Proservia1 /localonly /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\MigApp.xml" /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\Miguser.xml" /l:"\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP\USMTBackup.log"
+10/10/2016 01:37:01 | 20051-TESTXP | End USMT = 0
+10/10/2016 01:37:01 | 20051-TESTXP | cmd /c cscript "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" PDV,
+10/10/2016 01:37:23 | 20051-TESTXP | End Custom = 0
+10/10/2016 01:38:19 | 20051-TESTXP | ##############################################################################
+10/10/2016 01:38:19 | 20051-TESTXP | PathUSMT=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+10/10/2016 01:38:19 | 20051-TESTXP | PathOld=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+10/10/2016 01:38:19 | 20051-TESTXP | Trace32i=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\trace32.exe
+10/10/2016 01:38:19 | 20051-TESTXP | MigViewi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\MigViewer.exe
+10/10/2016 01:38:19 | 20051-TESTXP | CBackupi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs
+10/10/2016 01:38:19 | 20051-TESTXP | CRestorei=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs
+10/10/2016 01:38:19 | 20051-TESTXP | EDrives=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs
+10/10/2016 01:38:19 | 20051-TESTXP | EDrivesXML=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+10/10/2016 01:38:19 | 20051-TESTXP | VersionOS=5.1.2600
+10/10/2016 01:38:19 | 20051-TESTXP | PathScanstate=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86
+10/10/2016 01:38:19 | 20051-TESTXP | Check : \\sccm.wuibaille.fr\dml\USMTstartv2\USMT\flag.txt
+10/10/2016 01:38:19 | 20051-TESTXP | ComputerBackup=20051-TESTXP
+10/10/2016 01:38:19 | 20051-TESTXP | ##############################################################################
+10/10/2016 01:38:19 | 20051-TESTXP |  
+10/10/2016 01:38:22 | 20051-TESTXP | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs"
+10/10/2016 01:38:22 | 20051-TESTXP | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\tools\commandeavant.bat" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+10/10/2016 02:01:50 | 20051-TESTXP | exitcode=0
+10/10/2016 02:01:50 | 20051-TESTXP | Not Exist=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\config.xml
+10/10/2016 02:01:50 | 20051-TESTXP | Not Exist=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+10/10/2016 02:01:50 | 20051-TESTXP | "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\scanstate.exe" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" /v:13 /c /o /ue:Administrateur /ue:import_ad /ue:Proservia1 /localonly /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\MigApp.xml" /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\Miguser.xml" /l:"\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP\USMTBackup.log"
+14/10/2016 23:53:28 | 20051-TESTXP | ##############################################################################
+14/10/2016 23:53:28 | 20051-TESTXP | PathUSMT=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+14/10/2016 23:53:28 | 20051-TESTXP | PathOld=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+14/10/2016 23:53:28 | 20051-TESTXP | Trace32i=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\trace32.exe
+14/10/2016 23:53:28 | 20051-TESTXP | MigViewi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\MigViewer.exe
+14/10/2016 23:53:28 | 20051-TESTXP | CBackupi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs
+14/10/2016 23:53:28 | 20051-TESTXP | CRestorei=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs
+14/10/2016 23:53:28 | 20051-TESTXP | EDrives=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs
+14/10/2016 23:53:28 | 20051-TESTXP | EDrivesXML=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+14/10/2016 23:53:28 | 20051-TESTXP | VersionOS=5.1.2600
+14/10/2016 23:53:28 | 20051-TESTXP | PathScanstate=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86
+14/10/2016 23:53:28 | 20051-TESTXP | Check : \\sccm.wuibaille.fr\dml\USMTstartv2\USMT\flag.txt
+14/10/2016 23:53:28 | 20051-TESTXP | ComputerBackup=
+14/10/2016 23:53:28 | 20051-TESTXP | ##############################################################################
+14/10/2016 23:53:28 | 20051-TESTXP |  
+14/10/2016 23:55:05 | 20051-TESTXP | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs"
+14/10/2016 23:55:06 | 20051-TESTXP | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\tools\commandeavant.bat" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+15/10/2016 00:54:14 | 20051-TESTXP | exitcode=0
+15/10/2016 00:54:14 | 20051-TESTXP | Not Exist=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\config.xml
+15/10/2016 00:54:14 | 20051-TESTXP | Not Exist=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+15/10/2016 00:54:14 | 20051-TESTXP | "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\scanstate.exe" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" /v:13 /c /o /ue:Administrateur /ue:import_ad /ue:Proservia1 /localonly /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\MigApp.xml" /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\Miguser.xml" /l:"\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP\USMTBackup.log"
+15/10/2016 00:55:13 | 20051-TESTXP | End USMT = 0
+15/10/2016 00:55:13 | 20051-TESTXP | cmd /c cscript "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" PDV,
+15/10/2016 00:56:19 | 20051-TESTXP | End Custom = 0
+15/10/2016 01:01:23 | 20051-TESTXP | ##############################################################################
+15/10/2016 01:01:23 | 20051-TESTXP | PathUSMT=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+15/10/2016 01:01:23 | 20051-TESTXP | PathOld=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+15/10/2016 01:01:23 | 20051-TESTXP | Trace32i=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\trace32.exe
+15/10/2016 01:01:23 | 20051-TESTXP | MigViewi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\MigViewer.exe
+15/10/2016 01:01:23 | 20051-TESTXP | CBackupi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs
+15/10/2016 01:01:23 | 20051-TESTXP | CRestorei=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs
+15/10/2016 01:01:23 | 20051-TESTXP | EDrives=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs
+15/10/2016 01:01:23 | 20051-TESTXP | EDrivesXML=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+15/10/2016 01:01:23 | 20051-TESTXP | VersionOS=5.1.2600
+15/10/2016 01:01:23 | 20051-TESTXP | PathScanstate=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86
+15/10/2016 01:01:23 | 20051-TESTXP | Check : \\sccm.wuibaille.fr\dml\USMTstartv2\USMT\flag.txt
+15/10/2016 01:01:23 | 20051-TESTXP | ComputerBackup=20051-TESTXP
+15/10/2016 01:01:23 | 20051-TESTXP | ##############################################################################
+15/10/2016 01:01:23 | 20051-TESTXP |  
+15/10/2016 01:01:27 | 20051-TESTXP | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs"
+15/10/2016 01:01:27 | 20051-TESTXP | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\tools\commandeavant.bat" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+15/10/2016 01:03:14 | 20051-TESTXP | exitcode=0
+15/10/2016 01:03:14 | 20051-TESTXP | Not Exist=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\config.xml
+15/10/2016 01:03:14 | 20051-TESTXP | Not Exist=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+15/10/2016 01:03:14 | 20051-TESTXP | "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\scanstate.exe" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" /v:13 /c /o /ue:Administrateur /ue:import_ad /ue:Proservia1 /localonly /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\MigApp.xml" /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\Miguser.xml" /l:"\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP\USMTBackup.log"
+15/10/2016 01:04:04 | 20051-TESTXP | End USMT = 0
+15/10/2016 01:04:04 | 20051-TESTXP | cmd /c cscript "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" PDV,
+15/10/2016 01:04:19 | 20051-TESTXP | End Custom = 0
+15/10/2016 01:06:19 | 20051-TESTXP | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs"
+15/10/2016 01:06:19 | 20051-TESTXP | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\tools\commandeavant.bat" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+15/10/2016 01:06:44 | 20051-TESTXP | exitcode=0
+15/10/2016 01:06:44 | 20051-TESTXP | Not Exist=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\config.xml
+15/10/2016 01:06:44 | 20051-TESTXP | Not Exist=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+15/10/2016 01:06:44 | 20051-TESTXP | "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\scanstate.exe" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" /v:13 /c /o /ue:Administrateur /ue:import_ad /ue:Proservia1 /localonly /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\MigApp.xml" /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\Miguser.xml" /l:"\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP\USMTBackup.log"
+15/10/2016 01:07:20 | 20051-TESTXP | End USMT = 0
+15/10/2016 01:07:20 | 20051-TESTXP | cmd /c cscript "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" PDV,
+15/10/2016 01:07:30 | 20051-TESTXP | End Custom = 0
+15/10/2016 15:30:03 | 12345TRE | ##############################################################################
+15/10/2016 15:30:03 | 12345TRE | PathUSMT=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+15/10/2016 15:30:03 | 12345TRE | PathOld=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+15/10/2016 15:30:03 | 12345TRE | Trace32i=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\trace32.exe
+15/10/2016 15:30:04 | 12345TRE | MigViewi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\MigViewer.exe
+15/10/2016 15:30:04 | 12345TRE | CBackupi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs
+15/10/2016 15:30:04 | 12345TRE | CRestorei=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs
+15/10/2016 15:30:04 | 12345TRE | EDrives=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs
+15/10/2016 15:30:04 | 12345TRE | EDrivesXML=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+15/10/2016 15:31:23 | 12345TRE | VersionOS=6.1.7601
+15/10/2016 15:31:23 | 12345TRE | PathScanstate=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86
+15/10/2016 15:31:23 | 12345TRE | Check : \\sccm.wuibaille.fr\dml\USMTstartv2\USMT\flag.txt
+15/10/2016 15:31:24 | 12345TRE | ComputerBackup=20051-TESTXP
+15/10/2016 15:31:26 | 12345TRE | ##############################################################################
+15/10/2016 15:31:27 | 12345TRE |  
+15/10/2016 15:33:15 | 12345TRE | ##############################################################################
+15/10/2016 15:33:15 | 12345TRE | PathUSMT=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+15/10/2016 15:33:15 | 12345TRE | PathOld=\\sccm.wuibaille.fr\dml\USMTstartv2\USMT
+15/10/2016 15:33:15 | 12345TRE | Trace32i=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\trace32.exe
+15/10/2016 15:33:15 | 12345TRE | MigViewi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\MigViewer.exe
+15/10/2016 15:33:15 | 12345TRE | CBackupi=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomBackup.vbs
+15/10/2016 15:33:15 | 12345TRE | CRestorei=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs
+15/10/2016 15:33:15 | 12345TRE | EDrives=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.vbs
+15/10/2016 15:33:15 | 12345TRE | EDrivesXML=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMTExcludeDrives.xml
+15/10/2016 15:33:15 | 12345TRE | VersionOS=6.1.7601
+15/10/2016 15:33:15 | 12345TRE | PathScanstate=\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86
+15/10/2016 15:33:15 | 12345TRE | Check : \\sccm.wuibaille.fr\dml\USMTstartv2\USMT\flag.txt
+15/10/2016 15:33:15 | 12345TRE | ComputerBackup=20051-TESTXP
+15/10/2016 15:33:15 | 12345TRE | ##############################################################################
+15/10/2016 15:33:15 | 12345TRE |  
+15/10/2016 15:33:17 | 12345TRE | ComputerBackup=20051-TESTXP
+15/10/2016 15:33:17 | 12345TRE | >>>> 20051-TESTXP TO 12345TRE <<<<
+15/10/2016 15:33:17 | 12345TRE | "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\loadstate.exe" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP" /v:13 /c /lac /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\MigApp.xml" /i:"\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\USMT562\x86\Miguser.xml"  /l:"\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP\USMTRestore.log"
+15/10/2016 15:36:06 | 12345TRE | End USMT = 0
+15/10/2016 15:36:07 | 12345TRE | cmd /c cscript "\\sccm.wuibaille.fr\dml\USMTstartv2\Tools\CustomRestore.vbs" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+15/10/2016 15:36:44 | 20051-TESTXP | End Custom = 9
+15/10/2016 15:36:44 | 12345TRE | Start="\\sccm.wuibaille.fr\dml\USMTstartv2\tools\commandeapres.bat" "\\sccm.wuibaille.fr\dml\USMTstartv2\USMT\20051-TESTXP"
+15/10/2016 17:28:22 | 12345TRE | exitcode=-1073741205
+08/11/2016 11:28:55 | PC0BMUL5 | ##############################################################################
+08/11/2016 11:28:55 | PC0BMUL5 | PathUSMT=C:\Users\geoffrey.eloy\Desktop\USMTstartv2\USMT
+08/11/2016 11:28:55 | PC0BMUL5 | PathOld=C:\Users\geoffrey.eloy\Desktop\USMTstartv2\USMT
+08/11/2016 11:28:55 | PC0BMUL5 | Trace32i=C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\trace32.exe
+08/11/2016 11:28:55 | PC0BMUL5 | MigViewi=C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\MigViewer.exe
+08/11/2016 11:28:55 | PC0BMUL5 | CBackupi=C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\CustomBackup.vbs
+08/11/2016 11:28:55 | PC0BMUL5 | CRestorei=C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\CustomRestore.vbs
+08/11/2016 11:28:55 | PC0BMUL5 | EDrives=C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\USMTExcludeDrives.vbs
+08/11/2016 11:28:55 | PC0BMUL5 | EDrivesXML=C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\USMTExcludeDrives.xml
+08/11/2016 11:28:56 | PC0BMUL5 | VersionOS=6.3.9600
+08/11/2016 11:28:56 | PC0BMUL5 | PathScanstate=C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\USMT563\amd64
+08/11/2016 11:28:56 | PC0BMUL5 | Check : C:\Users\geoffrey.eloy\Desktop\USMTstartv2\USMT\flag.txt
+08/11/2016 11:28:56 | PC0BMUL5 | ComputerBackup=
+08/11/2016 11:28:56 | PC0BMUL5 | ##############################################################################
+08/11/2016 11:28:56 | PC0BMUL5 |  
+08/11/2016 11:29:06 | PC0BMUL5 | Start="C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\USMTExcludeDrives.vbs"
+08/11/2016 11:29:07 | PC0BMUL5 | Start="C:\Users\geoffrey.eloy\Desktop\USMTstartv2\tools\commandeavant.bat" "C:\Users\geoffrey.eloy\Desktop\USMTstartv2\USMT\PC0BMUL5"
+08/11/2016 12:08:27 | PC0BMUL5 | exitcode=255
+08/11/2016 12:08:27 | PC0BMUL5 | Not Exist=C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\USMT563\amd64\config.xml
+08/11/2016 12:08:27 | PC0BMUL5 | Exist=C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\USMTExcludeDrives.xml
+08/11/2016 12:08:27 | PC0BMUL5 | "C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\USMT563\amd64\scanstate.exe" "C:\Users\geoffrey.eloy\Desktop\USMTstartv2\USMT\PC0BMUL5" /v:13 /c /o /ue:geoffrey /ue:Administrateur /ue:import_ad /ue:Proservia1 /localonly /i:"C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\USMT563\amd64\MigApp.xml" /i:"C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\USMT563\amd64\Miguser.xml" /i:"C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\USMTExcludeDrives.xml" /l:"C:\Users\geoffrey.eloy\Desktop\USMTstartv2\USMT\PC0BMUL5\USMTBackup.log"
+08/11/2016 12:11:45 | PC0BMUL5 | End USMT = 2
+08/11/2016 12:11:45 | PC0BMUL5 | cmd /c cscript "C:\Users\geoffrey.eloy\Desktop\USMTstartv2\Tools\CustomBackup.vbs" "C:\Users\geoffrey.eloy\Desktop\USMTstartv2\USMT\PC0BMUL5" benoit,
+08/11/2016 12:11:46 | PC0BMUL5 | End Custom = 0

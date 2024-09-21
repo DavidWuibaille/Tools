@@ -1,0 +1,663 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+  
+  
+  <title>USMT Start</title>
+  <hta:application id="USMT" scroll="No" border="thin" borderstyle="normal" caption="yes" icon="Images\icone.ico" maximizebutton="no" minimizebutton="yes" showintaskbar="yes" singleinstance="no" sysmenu="yes" version="1.0" windowstate="NORMAL"></hta:application>
+  <script language="VBScript">
+
+Const HKEY_LOCAL_MACHINE = &H80000002 
+Set Fso = CreateObject("Scripting.FileSystemObject")
+Set Shell = CreateObject("Wscript.Shell")
+
+Dim PathUSMTx86
+Dim PathUSMTx64
+Dim Trace32     : Trace32     = "\Tools\trace32.exe"
+Dim MigView	    : MigView     = "\Tools\MigViewer.exe"
+
+Dim CBackup     : CBackup     = "\Tools\CustomBackup.vbs"
+Dim CRestore    : CRestore    = "\Tools\CustomRestore.vbs"
+
+Dim EDrives		: EDrives	  = "\Tools\USMTExcludeDrives.vbs"
+Dim EDrivesXML	: EDrivesXML  = "\Tools\USMTExcludeDrives.xml"
+
+Dim PathOld
+Dim Trace32i, MigViewi, CBackupi, CRestorei
+Dim PathScanstate, PathLoadstate
+Dim ComputerBackup, StrComputerName
+Dim	TabUSMT
+Redim TabUSMT(0)
+Dim PathUSMT
+Dim VersionOS
+Dim Argument
+
+Dim TabUSR
+Redim TabUSR(0)
+
+Dim PatchUSMTSTART
+
+' Variable
+Dim letter
+letter = array("c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
+
+
+Sub Window_Onload
+	Argument = USMT.commandLine
+	Argument = replace(UCase(Argument),chr(34),"")
+	TempArg = split(UCase(Argument),".HTA")
+	Argument = Trim(TempArg(1))
+	
+	On error resume Next
+    window.resizeTo 450,440
+	USMT_Current.innerHTML = ""
+	USMT_Result.innerHTML = ""
+	Custom_Result.innerHTML = ""
+	Bouton_Log1.innerHTML = ""
+	Bouton_Log2.innerHTML = ""
+	Bouton_view.innerHTML = ""
+	Bouton_Diff.innerHTML = ""
+
+	strHtmlLocnVal = document.location.href
+
+	'file://serv/MDT/_Outil/USMT/USMTSTARTV3.0.hta
+	strThisHTA = Replace(strHtmlLocnVal,"/", "\")
+	strThisHTA = Right(strThisHTA,Len(strThisHTA)-5)
+	strThisHTA = Replace(strThisHTA,"\\\", "")
+	
+	strThisHTA = UnEscape(strThisHTA)
+	Set objThisFile = Fso.GetFile(strThisHTA) 
+	objParentDir = objThisFile.ParentFolder 
+	Set objFolder = Fso.GetFolder(objParentDir) 
+	objCurrDir = objFolder.Path 
+		
+	PatchUSMTSTART = objCurrDir
+	if Right(PatchUSMTSTART,1) = "\" Then 
+		PatchUSMTSTART = Left(PatchUSMTSTART,(Len(PatchUSMTSTART) -1))
+	End If
+	
+	StrComputerName = Shell.ExpandEnvironmentStrings("%COMPUTERNAME%")
+	PathUSMT = PatchUSMTSTART & "\USMT"
+	PathOld  = PatchUSMTSTART & "\USMT"
+	Trace32i = PatchUSMTSTART & Trace32
+	MigViewi = PatchUSMTSTART & MigView
+	
+	CBackupi = PatchUSMTSTART & CBackup
+	CRestorei = PatchUSMTSTART & CRestore
+	EDrives = PatchUSMTSTART & EDrives
+	EDrivesXML = PatchUSMTSTART & EDrivesXML
+
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "##############################################################################"
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "PathUSMT=" & PathUSMT
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "PathOld=" &  PathOld
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "Trace32i=" &  Trace32i
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "MigViewi=" &  MigViewi
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "CBackupi=" &  CBackupi
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "CRestorei=" &  CRestorei
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "EDrives=" &  EDrives
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "EDrivesXML=" &  EDrivesXML
+
+	
+	'detection de la version d'OS pour determiner la version d'USMT à utiliser
+	on error resume next
+	VersionOS = "0"
+	Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & "." & "\root\cimv2")
+	Set colOperatingSystems = objWMIService.ExecQuery ("Select * from Win32_OperatingSystem")
+	For Each objOperatingSystem in colOperatingSystems
+		VersionOS = objOperatingSystem.Version
+	Next
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "VersionOS=" &  VersionOS
+
+	PathUSMTx86 = "\Tools\USMT562\x86"
+	PathUSMTx64 = "\Tools\USMT562\amd64"
+	on error goto 0
+	if instr(VersionOS,"10.0") Then
+		PathUSMTx86 = "\Tools\USMT10\x86"
+		PathUSMTx64 = "\Tools\USMT10\amd64"
+	End If
+	if instr(VersionOS,"6.3") Then
+		PathUSMTx86 = "\Tools\USMT563\x86"
+		PathUSMTx64 = "\Tools\USMT563\amd64"
+	End If	
+	
+	
+	'PDT10X6401 | VersionOS=10.0.10586
+	'PDT81X6401 | VersionOS=6.3.9600
+	'PDTX6401 | VersionOS=6.1.7601
+	'PDTXP01 | VersionOS=5.1.2600
+	'PDT80X6401 | VersionOS=6.2.9200
+	'pdtvistax6401 | VersionOS=6.0.6002
+	
+	
+	If Fso.FolderExists("C:\Windows\SysWOW64") Then
+		PathScanstate = PatchUSMTSTART & PathUSMTx64
+		PathLoadstate = PatchUSMTSTART & PathUSMTx64
+	Else
+		PathScanstate = PatchUSMTSTART & PathUSMTx86
+		PathLoadstate = PatchUSMTSTART & PathUSMTx86
+	End If
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "PathScanstate=" &  PathScanstate
+				
+	
+	ComputerBackup = ""
+	If Fso.FileExists(PathUSMT & "\flag.txt") Then
+		Set inf = Fso.OpenTextFile(PathUSMT & "\flag.txt", 1) 
+		While inf.AtEndOfStream <> True
+			Ligne = Trim(Inf.Readline)
+			ComputerBackup = Ligne
+		Wend
+		inf.Close
+	End If
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "Check : " & PathUSMT & "\flag.txt"
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "ComputerBackup=" &  ComputerBackup
+	
+	
+	If Fso.FileExists(PathUSMT & "\flag.txt") Then
+		Set inf = Fso.OpenTextFile(PathUSMT & "\flag.txt", 1) 
+	
+		While inf.AtEndOfStream <> True
+			Ligne = Trim(Inf.Readline)
+			
+		Wend
+		inf.Close
+	Else
+		Bouton_view.innerHTML = "<input id=" & chr(34) & "runbutton" & chr(34) & " class=" & chr(34) & "button" & chr(34) & " value=" & chr(34) & "MigViewer" & chr(34) & " name=" & chr(34) & "MigViewer" & chr(34) & " onclick=" & chr(34) & "Lance_Tools" & chr(34) & " type=" & chr(34) & "button" & chr(34) & ">"
+	End If
+
+
+	'New
+	Redim TabUSMT(0)
+	set objFolder = Fso.GetFolder(PathUSMT & "\")
+	for Each folder in objFolder.SubFolders
+		TabUSMT(Ubound(TabUSMT)) = folder.name
+		Redim Preserve TabUSMT(Ubound(TabUSMT)+1)
+	Next
+	
+	
+	HtmlCode = "<select size=" & chr(34) & "1" & chr(34) & " name=" & chr(34) & "DropDown1" & chr(34) & " onChange=" & chr(34) & "ChangeVariable" & chr(34) & ">"
+	
+	For i = 0 To (Ubound(TabUSMT) -1)
+		HtmlCode = HtmlCode & "<option value=" & chr(34) & (i+1) & chr(34) & ">" & TabUSMT(i) & "</option>"
+	Next
+	
+	HtmlCode = HtmlCode & "</select>"
+	USMT_Current.innerHTML = HtmlCode
+
+	For i = 0 To (Ubound(TabUSMT) -1)
+		If UCase(TabUSMT(i)) = UCase(ComputerBackup) Then
+			DropDown1.Value = (i+1)
+		End If
+	Next
+	
+	
+	ListUSER
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "##############################################################################"
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & " "
+	
+	' Si argument lancement auto
+	If Instr(Argument,"BACKUP") <> 0 Then
+		Call Lance_Scanstate
+	End If
+	
+	If Instr(Argument,"RESTORE") <> 0 Then
+		Call Lance_Loadstate
+	End If
+	
+End Sub
+
+Sub ChangeVariable
+	ComputerBackup = TabUSMT(DropDown1.Value -1)
+End Sub
+
+Sub ListUSER
+	HtmlCode = "<select size=" & chr(34) & "3" & chr(34) & " name=" & chr(34) & "DropDown2" & chr(34) & " multiple>"
+	
+	Set objRegistry=GetObject("winmgmts:\\" & "." & "\root\default:StdRegProv")
+
+	strKeyPath = "SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList"
+	objRegistry.EnumKey HKEY_LOCAL_MACHINE, strKeyPath, arrSubkeys
+	 
+	i = 0
+
+	For Each objSubkey In arrSubkeys
+		strValueName = "ProfileImagePath"
+		strSubPath = strKeyPath & "\" & objSubkey
+		objRegistry.GetExpandedStringValue HKEY_LOCAL_MACHINE,strSubPath,strValueName,strValue
+		strValue = Right(strValue, Len(strValue) - InstrRev(strValue,"\"))
+		If UCase(strValue) <> "LOCALSERVICE" And UCase(strValue) <> "NETWORKSERVICE" And  UCase(strValue) <> "SYSTEMPROFILE" Then
+			iniexclusion = 0
+
+			set inf= Fso.OpenTextFile(PatchUSMTSTART & "\USMTStart.ini")
+			While inf.AtEndOfStream <> True
+				Ligne = Trim(Inf.Readline)
+				If Left(Ligne,1) <> ";" Then
+					If LectureTransfert = 1 Then
+					Ligne = UCase(Ligne)
+					if UCase(strValue) = UCase(Ligne) Then iniexclusion = 1
+				End If
+			End If
+			if Instr(UCase(Ligne),"[") <> 0 And Instr(UCase(Ligne),"]") <> 0 Then LectureTransfert = 0
+			If Instr(UCase(Ligne),"[EXCLUDEUSERS]") <> 0 Then LectureTransfert = 1
+			Wend
+			inf.close	
+				
+			If iniexclusion = 0 Then
+
+				If Instr(strValue,".") <> 0 Then
+					Temp = split(strValue,".")
+					strValue = Temp(0)
+				End If
+				
+				ContinueUSB = 1
+				For j = O To UBound(TabUSR)
+					If UCase(strValue) = UCase(TabUSR(j)) Then ContinueUSB = 0
+				Next
+				
+				
+				If ContinueUSB = 1 Then
+					i = i + 1
+					TabUSR(Ubound(TabUSR)) = strValue
+					Redim Preserve TabUSR(Ubound(TabUSR)+1) 
+					HtmlCode = HtmlCode & "<option value=" & chr(34) & i & chr(34) & ">" & strValue & "</option>"
+				End If
+			End If
+		End If
+	Next
+	
+	HtmlCode = HtmlCode & "</select>"
+	
+	ListUsr.innerHTML = HtmlCode
+End Sub
+
+Sub Lance_Scanstate
+	Set inf = Fso.CreateTextFile(PathUSMT & "\flag.txt", True)
+	CodeExit = 0
+	CodeRetour = Inf.WriteLine(StrComputerName)
+	Inf.close
+	
+	' generation du fichier xml d'exclusion des HDD USB
+	If Fso.fileExists(EDrivesXML) Then CodeRetour = Fso.deletefile(EDrivesXML, True)
+	If Fso.FileExists(EDrives) then
+		TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "Start=" & chr(34) & EDrives & chr(34)
+		CodeExe = Shell.run("cmd /c cscript " & chr(34) & EDrives & chr(34),,True)
+	End If
+	
+	If Fso.FileExists(PatchUSMTSTART & "\tools\commandeavant.bat") then
+		If Fso.FolderExists(PathUSMT & "\" & StrComputerName) = False Then CodeRetour = Fso.createFolder(PathUSMT & "\" & StrComputerName)
+		TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "Start=" & chr(34) & PatchUSMTSTART & "\tools\commandeavant.bat" & chr(34) & " " & chr(34) & PathUSMT & "\" & StrComputerName & chr(34)
+		CodeExe = Shell.run(chr(34) & PatchUSMTSTART & "\tools\commandeavant.bat" & chr(34) & " " & chr(34) & PathUSMT & "\" & StrComputerName & chr(34),,True)
+		TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "exitcode=" & codeexe
+		
+		If CodeExe = 0 Then
+			Custom_commande.innerHTML = "End Commande = " & CodeExe
+		Else
+			Custom_commande.innerHTML = "<span style=" & chr(34) & "font-weight: bold; color: rgb(255, 0, 0);" & chr(34) & ">" & "End Commande = " & CodeExe & "</span>"
+		End If
+		
+		
+		CodeExit = CodeExit + CodeExe
+	Else
+		TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "not exist=" & chr(34) & PatchUSMTSTART & "\tools\commandeavant.bat" & chr(34)
+	End If
+
+	ExcludeUSR = ""
+	IncludeUSR = ""
+	For i = 0 to (Ubound(TabUSR) -1)
+		ExcludeUSR = ExcludeUSR & " /ue:" & TabUSR(i)
+	Next
+	
+	iniexclusion = 0
+	set inf= Fso.OpenTextFile(PatchUSMTSTART & "\USMTStart.ini")
+	While inf.AtEndOfStream <> True
+		Ligne = Trim(Inf.Readline)
+		If Left(Ligne,1) <> ";" And ligne <> "" And Left(Ligne,1) <> "["Then
+			If LectureTransfert = 1 Then
+				ExcludeUSR = ExcludeUSR & " /ue:" & Ligne
+			End If
+		End If
+	if Instr(UCase(Ligne),"[") <> 0 And Instr(UCase(Ligne),"]") <> 0 Then LectureTransfert = 0
+	If Instr(UCase(Ligne),"[EXCLUDEUSERS]") <> 0 Then LectureTransfert = 1
+	Wend
+	inf.close	
+	
+	if ExcludeUSR = "" Then ExcludeUSR = " "
+	
+	For i = 0 to (Dropdown2.Options.Length - 1)
+		If (Dropdown2.Options(i).Selected) Or Instr(Argument,"BACKUP") <> 0 Then
+			ExcludeUSR = Replace(ExcludeUSR," /ue:" & TabUSR(Dropdown2.Options(i).Value -1),"")
+			IncludeUSR = IncludeUSR & TabUSR(Dropdown2.Options(i).Value -1) & ","
+		End If
+	Next
+
+	Lanseur  = Chr(34) & PathScanstate & "\scanstate.exe" & chr(34)
+	Comande  = chr(34) & PathUSMT & "\" & StrComputerName & chr(34) & " /v:13 /c /o" & ExcludeUSR & " /localonly"
+	XMLfile  = "/i:" & chr(34) & PathScanstate & "\MigApp.xml" & chr(34) & " /i:" & chr(34) & PathScanstate & "\Miguser.xml" & chr(34)
+	
+	XMLconfig = " "
+
+	If Fso.FileExists(PathScanstate & "\config.xml") Then
+		XMLconfig1 = " /config:" & chr(34) & PathScanstate & "\config.xml" & chr(34)
+		TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "Exist=" &  PathScanstate & "\config.xml"
+	Else
+		XMLconfig1 = " "
+		TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "Not Exist=" &  PathScanstate & "\config.xml"
+	End If
+
+	If Fso.FileExists(EDrivesXML) Then
+		XMLconfig2 = " /i:" & chr(34) & EDrivesXML & chr(34)
+		TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "Exist=" &  EDrivesXML
+	Else
+		XMLconfig2 = " "
+		TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "Not Exist=" &  EDrivesXML
+	End If
+
+	If XMLconfig1 = " " And XMLconfig2 = " " Then
+		XMLconfig = " "
+	End If
+	
+	If XMLconfig1 <> " " And XMLconfig2 = " " Then
+		XMLconfig = XMLconfig1 & " "
+	End If	
+	
+	If XMLconfig1 = " " And XMLconfig2 <> " " Then
+		XMLconfig = XMLconfig2 & " "
+	End If		
+
+	If XMLconfig1 <> " " And XMLconfig2 <> " " Then
+		XMLconfig = XMLconfig1 & XMLconfig2 & " "
+	End If
+	
+	
+	LogFile  = "/l:" & chr(34) & PathOld & "\" & StrComputerName & "\USMTBackup.log" & chr(34)
+
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & Lanseur & " " & Comande & " " & XMLfile & XMLconfig & LogFile
+	CodeExe = Shell.Run(Lanseur & " " & Comande & " " & XMLfile & XMLconfig & LogFile,,True)
+	if CodeExe = 0 Then
+		USMT_Result.innerHTML = "End USMT = " & CodeExe
+	Else
+		USMT_Result.innerHTML = "<span style=" & chr(34) & "font-weight: bold; color: rgb(255, 0, 0);" & chr(34) & ">" & "End USMT = " & CodeExe & "</span>"
+	End If
+	
+	
+	CodeExit = CodeExit + CodeExe
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "End USMT = " & CodeExe
+
+	Bouton_Log1.innerHTML = "<input id=" & chr(34) & "runbutton" & chr(34) & " class=" & chr(34) & "button" & chr(34) & " value=" & chr(34) & "Log USMT" & chr(34) & " name=" & chr(34) & "Log" & chr(34) & " onclick=" & chr(34) & "Lance_logscanstate" & chr(34) & " type=" & chr(34) & "button" & chr(34) & ">"
+	
+	if Fso.FileExists(CBackupi) Then
+		TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "cmd /c cscript " & chr(34) & CBackupi & chr(34) & " " & chr(34) & PathUSMT & "\" & StrComputerName & chr(34)  & " " & IncludeUSR
+		CodeExe = Shell.run("cmd /c cscript " & chr(34) & CBackupi & chr(34) & " " & chr(34) & PathUSMT & "\" & StrComputerName & chr(34) & " " & IncludeUSR,,True)
+		TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "End Custom = " & CodeExe
+
+		If codeExe = 0 Then
+			Custom_Result.innerHTML = "End Custom = " & Cstr(CodeExe)
+		Else
+			Custom_Result.innerHTML = "<span style=" & chr(34) & "font-weight: bold; color: rgb(255, 0, 0);" & chr(34) & ">" & "End Custom = " & CodeExe & "</span>"
+		End If
+
+
+		CodeExit = CodeExit + CodeExe
+		Bouton_Log2.innerHTML = "<input id=" & chr(34) & "runbutton" & chr(34) & " class=" & chr(34) & "button" & chr(34) & " value=" & chr(34) & "Log Custom" & chr(34) & " name=" & chr(34) & "Log" & chr(34) & " onclick=" & chr(34) & "Lance_logsCustomBackup" & chr(34) & " type=" & chr(34) & "button" & chr(34) & ">"
+	End If
+	
+	
+	Bouton_view.innerHTML = "<input id=" & chr(34) & "runbutton" & chr(34) & " class=" & chr(34) & "button" & chr(34) & " value=" & chr(34) & "MigViewer" & chr(34) & " name=" & chr(34) & "MigViewer" & chr(34) & " onclick=" & chr(34) & "Lance_Tools" & chr(34) & " type=" & chr(34) & "button" & chr(34) & ">"
+	Bouton_Diff.innerHTML = "<input id=" & chr(34) & "runbutton" & chr(34) & " class=" & chr(34) & "button" & chr(34) & " value=" & chr(34) & "View Filename" & chr(34) & " name=" & chr(34) & "View Filename" & chr(34) & " onclick=" & chr(34) & "Lance_Diff" & chr(34) & " type=" & chr(34) & "button" & chr(34) & ">"
+
+	If Instr(Argument,"BACKUP") <> 0 Then self.close(CodeExit)
+End Sub
+
+sub Lance_Tools
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & MigViewi
+	CodeExe = Shell.Run(chr(34) & MigViewi & chr(34),,False)
+end sub
+
+Sub Lance_logscanstate
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & chr(34) & Trace32i & chr(34) & " " & chr(34) & PathOld & "\" & StrComputerName & "\USMTBackup.log" & chr(34)
+	CodeExe = Shell.Run(chr(34) & Trace32i & chr(34) & " " & chr(34) & PathOld & "\" & StrComputerName & "\USMTBackup.log" & chr(34),,False)
+end sub
+
+Sub Lance_logloadstate
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & chr(34) & Trace32i & chr(34) & " " & chr(34) & PathOld & "\" & ComputerBackup & "\USMTRestore.log" & chr(34)
+	CodeExe = Shell.Run(chr(34) & Trace32i & chr(34) & " " & chr(34) & PathOld & "\" & ComputerBackup & "\USMTRestore.log" & chr(34),,False)
+end sub
+
+
+Sub Lance_logsCustomBackup
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & chr(34) & Trace32i & chr(34) & " " & chr(34) & PathOld & "\" & StrComputerName & "\CustomBackup.log" & chr(34)
+	CodeExe = Shell.Run(chr(34) & Trace32i & chr(34) & " " & chr(34) & PathOld & "\" & StrComputerName & "\CustomBackup.log" & chr(34),,False)
+end sub
+
+Sub Lance_logsCustomRestore
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & chr(34) & Trace32i & chr(34) & " " & chr(34) & PathOld & "\" & ComputerBackup & "\CustomRestore.log" & chr(34)
+	CodeExe = Shell.Run(chr(34) & Trace32i & chr(34) & " " & chr(34) & PathOld & "\" & ComputerBackup & "\CustomRestore.log" & chr(34),,False)
+end sub
+
+Sub Lance_Diff
+	Dossierm1 = ""
+	Compteur = 0
+
+	If Fso.FileExists(PathOld & "\" & StrComputerName & "\USMTBackup.log") Then
+		set inf= Fso.OpenTextFile(PathOld & "\" & StrComputerName & "\USMTBackup.log")
+		Set inf2 = FSO.createTextFile(PathOld & "\" & StrComputerName & "\Diff.log")
+		inf2.writeline "Dossier avec probleme..."
+		While inf.AtEndOfStream <> True
+			Ligne = Trim(Inf.Readline)
+			If Instr(Ucase(Ligne),"PROCESSING FILE") <> 0 Then
+				Temp = Split(UCase(Ligne),"PROCESSING FILE")
+				
+				If Right(Ligne,1) = "]" Then
+					Temp2 = Split(Temp(1),"[")
+					Temp2(0) = Trim(Temp2(0))
+					Temp2(1) = Trim(Temp2(1))
+								
+					Compteur = Compteur + 1
+					Dossierm1 = Temp2(0)
+
+				Else
+					If Dossierm1 <> "" Then
+						On error resume next
+						Set DataFolder = Fso.GetFolder(Dossierm1)
+						If err.number = 0 Then
+							Set DataFiles = DataFolder.Files 
+							NumberOfFiles = DataFiles.Count 
+							If Compteur <> NumberOfFiles Then
+								inf2.writeline Dossierm1 & "==>" & Compteur & "=" & NumberOfFiles
+							End If
+						Else
+							inf2.writeline Dossierm1 & "==>" & Compteur & "=" & "ERROR"
+						End If
+						Compteur = 0
+						On error goto 0
+					End If
+				End If
+				
+			End If
+		Wend
+		inf.close
+		Inf2.close
+		CodeExe = Shell.Run(chr(34) & Trace32i & chr(34) & " " & chr(34) & PathOld & "\" & StrComputerName & "\Diff.log" & chr(34),,False)
+	Else
+		Msgbox "not exist " & PathOld & "\" & StrComputerName & "\USMTBackup.log"
+	End If
+
+	'ListUsr.innerHTML = ""
+End Sub
+
+Sub Lance_Loadstate
+	If Instr(UCase(Argument),"COMPUTER=") <> 0 Then
+		Temp = Split(UCase(Argument),"COMPUTER=")
+		ComputerBackup = Temp(1)
+	Else
+		ComputerBackup = TabUSMT(DropDown1.Value -1)
+	End If
+	
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "ComputerBackup=" & ComputerBackup
+	TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & ">>>> " & ComputerBackup & " TO " & StrComputerName & " <<<<"
+	If ComputerBackup = "" Then
+		Msgbox "Auto Detect Old Computername Error"
+
+	Else
+		CodeExit = 0
+		
+		Lanseur  = Chr(34) & PathLoadstate & "\loadstate.exe" & chr(34)
+		Comande  = chr(34) & PathUSMT & "\" & ComputerBackup & chr(34) & " /v:13 /c /lac"
+		XMLfile  = "/i:" & chr(34) & PathLoadstate & "\MigApp.xml" & chr(34) & " /i:" & chr(34) & PathLoadstate & "\Miguser.xml" & chr(34)
+		LogFile  = "/l:" & chr(34) & PathOld & "\" & ComputerBackup & "\USMTRestore.log" & chr(34)
+		
+		If Fso.FileExists(PathScanstate & "\config.xml") Then
+			XMLconfig = " /config:" & chr(34) & PathScanstate & "\config.xml"  & chr(34) & " "
+		Else
+			XMLconfig = " "
+		End If
+
+		TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & Lanseur & " " & Comande & " " & XMLfile & XMLconfig & " " & LogFile
+		CodeExe = Shell.Run(Lanseur & " " & Comande & " " & XMLfile & XMLconfig & LogFile,,True)
+		
+		if CodeExe = 0 Then
+			USMT_Result.innerHTML = "End USMT = " & CodeExe
+		Else
+			USMT_Result.innerHTML = "<span style=" & chr(34) & "font-weight: bold; color: rgb(255, 0, 0);" & chr(34) & ">" & "End USMT = " & CodeExe & "</span>"
+		End If
+		
+		CodeExit = CodeExit + CodeExe
+		TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "End USMT = " & CodeExe
+		Bouton_Log1.innerHTML = "<input id=" & chr(34) & "runbutton" & chr(34) & " class=" & chr(34) & "button" & chr(34) & " value=" & chr(34) & "Log USMT" & chr(34) & " name=" & chr(34) & "Log" & chr(34) & " onclick=" & chr(34) & "Lance_logloadstate" & chr(34) & " type=" & chr(34) & "button" & chr(34) & ">"
+		Bouton_view.innerHTML = "<input id=" & chr(34) & "runbutton" & chr(34) & " class=" & chr(34) & "button" & chr(34) & " value=" & chr(34) & "MigViewer" & chr(34) & " name=" & chr(34) & "MigViewer" & chr(34) & " onclick=" & chr(34) & "Lance_Tools" & chr(34) & " type=" & chr(34) & "button" & chr(34) & ">"
+		Bouton_Diff.innerHTML = ""
+		
+		if Fso.FileExists(CRestorei) Then
+			TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "cmd /c cscript " & chr(34) & CRestorei & chr(34) & " " & chr(34) & PathUSMT & "\" & ComputerBackup & chr(34)
+			CodeExe = Shell.run("cmd /c cscript " & chr(34) & CRestorei & chr(34) & " " & chr(34) & PathUSMT & "\" & ComputerBackup & chr(34),,True)
+			TraceLog PatchUSMTSTART & "\USMTstart.log" , ComputerBackup & " | " & "End Custom = " & CodeExe
+
+			If CodeExe = 0 Then
+				Custom_Result.innerHTML = "End Custom = " & CodeExe
+			Else
+				Custom_Result.innerHTML = "<span style=" & chr(34) & "font-weight: bold; color: rgb(255, 0, 0);" & chr(34) & ">" & "End Custom = " & CodeExe & "</span>"
+			End If
+
+			CodeExit = CodeExit + CodeExe
+			Bouton_Log2.innerHTML = "<input id=" & chr(34) & "runbutton" & chr(34) & " class=" & chr(34) & "button" & chr(34) & " value=" & chr(34) & "Log Custom" & chr(34) & " name=" & chr(34) & "Log" & chr(34) & " onclick=" & chr(34) & "Lance_logsCustomRestore" & chr(34) & " type=" & chr(34) & "button" & chr(34) & ">"
+		End If
+		If Fso.FileExists(PatchUSMTSTART & "\tools\commandeapres.bat") then
+			TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "Start=" & chr(34) & PatchUSMTSTART & "\tools\commandeapres.bat" & chr(34) & " " & chr(34) & PathUSMT & "\" & ComputerBackup & chr(34)
+			CodeExe = Shell.run(chr(34) & PatchUSMTSTART & "\tools\commandeapres.bat" & chr(34) & " " & chr(34) & PathUSMT & "\" & ComputerBackup & chr(34),,True)
+			TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "exitcode=" & codeexe
+			
+			If CodeExe = 0 Then
+				Custom_commande.innerHTML = "End Commande = " & CodeExe
+			Else
+				Custom_commande.innerHTML = "<span style=" & chr(34) & "font-weight: bold; color: rgb(255, 0, 0);" & chr(34) & ">" & "End Commande = " & CodeExe & "</span>"
+			End If
+			
+			CodeExit = CodeExit + CodeExe
+		Else
+			TraceLog PatchUSMTSTART & "\USMTstart.log" , StrComputerName & " | " & "not exist=" & chr(34) & PatchUSMTSTART & "\tools\commandeapres.bat" & chr(34)
+		End If
+		If Fso.FileExists(PathUSMT & "\flag.txt") Then CodeRetour = Fso.DeleteFile(PathUSMT & "\flag.txt",True)
+	End If
+	'ListUsr.innerHTML = ""
+	
+	If Instr(Argument,"RESTORE") <> 0 Then self.close(CodeExit)
+End Sub
+
+Function TraceLog(FichierLog,Commentaire)
+	Dim oFso, fich
+	Set oFso = CreateObject("Scripting.FileSystemObject")
+	Set fich = oFso.OpenTextFile(FichierLog,8,True)
+	fich.writeline cstr(Date) & " " & cstr(Time) & " | " & Commentaire
+ 	fich.close
+End Function 
+
+ </script>
+</head>
+
+<body background = "Images\image.jpg">
+<div style="text-align: center;"><big><span
+ style="font-weight: bold;"><BIG>Backup / Restore</BIG></span></big><br>
+
+
+</div>
+<br>
+
+<table style="text-align: left; width: 100%;" border="0" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td></td>
+	  <td>&nbsp;<br></td>
+      <td></td>
+    </tr>
+
+
+
+    <tr>
+      <td>
+		<span style="font-weight: bold;"><div style="text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sauvegarder cet &nbsp;&nbsp;&nbsp;&nbsp; ordinateur <br> </div></span>
+	  </td>
+	  <td></td>
+      <td>
+		<span style="font-weight: bold;"><div style="text-align: center;">Restaurer depuis un ordinateur <br> </div></span>
+
+	  </td>
+    </tr>
+    <tr>
+      <td>
+		&nbsp;
+	  </td>
+	  <td></td>
+      <td>
+		&nbsp;
+
+	  </td>
+    </tr>
+    <tr>
+      <td>
+		<div style="text-align: center;">Selectionner les profils a sauvegarder <br> </div>
+		<div style="text-align: center;"> <span id="ListUsr"></span> <br> </div>
+		<div style="text-align: center;"><input id="runbutton" class="button" value="Backup" name="ExportMDT" onclick="Lance_Scanstate" type="button">
+	  </td>
+	  <td></td>
+      <td>
+		<div style="text-align: center;">Selectionner l'ordinateur a restaurer <br> </div>
+		<div style="text-align: center;"><div style="text-align: center;"> <span id="USMT_Current"></span> <br> </div>
+		<input id="runbutton" class="button" value="Restore" name="ExportMDT" onclick="Lance_Loadstate" type="button">
+
+	  </td>
+    </tr>
+</table>
+<BR>
+<table style="text-align: left; width: 100%;" border="0"
+ cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr align="center">
+      <td><span id="USMT_Result"></span> <br></td>
+    </tr>
+    <tr align="center">
+      <td><span id="Custom_Result"></span></td>
+    </tr>
+    <tr align="center">
+      <td><span id="Custom_commande"></span></td>
+    </tr>
+
+    <tr align="center">
+      <td><span id="Bouton_Log1">&nbsp;</span><span id="Bouton_Log2"></span></td>
+    </tr>
+	<tr align="center">
+      <td><span id="Bouton_Diff"></span></td>
+    </tr>
+
+	<tr align="center">
+      <td><span id="Bouton_view"></span></td>
+    </tr>
+	</tbody>
+</table>
+
+
+
+</div>
+
+
+</body>
+</html>
