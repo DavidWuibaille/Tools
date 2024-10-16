@@ -98,10 +98,10 @@ $buttonExecute.Add_Click({
     Write-Host "--- Checking and updating startnet.cmd if necessary."
     # Read the content of startnet.cmd if exists
     if (Test-Path $startnetCmdPath) {
-        $startnetContent = Get-Content -Path $startnetCmdPath
+        $startnetContent = Get-Content -Path $startnetCmdPath -Raw
 
-        # Check if setkeyboardlayout is not present
-        if ($startnetContent -notmatch 'setkeyboardlayout') {
+        # Check if 'setkeyboardlayout' is not present, ignoring case
+        if ($startnetContent -notmatch '(?i)setkeyboardlayout') {
             # Define the keyboard selection block
             $keyboardBlock = @"
 ECHO 1: Keyboard = FR
@@ -120,7 +120,7 @@ wpeutil setkeyboardlayout %Clavier%
 "@
 
             # Prepend the keyboard block to the startnet.cmd file
-            Set-Content -Path $startnetCmdPath -Value "$keyboardBlock`r`n$($startnetContent -join "`r`n")"
+            Set-Content -Path $startnetCmdPath -Value "$keyboardBlock`r`n$startnetContent"
             Write-Host "--- Keyboard configuration added to startnet.cmd."
         } else {
             Write-Host "--- Keyboard configuration already exists in startnet.cmd."
@@ -129,8 +129,8 @@ wpeutil setkeyboardlayout %Clavier%
         # Handle the case where startnet.cmd does not exist
         [System.Windows.Forms.MessageBox]::Show("startnet.cmd not found at $startnetCmdPath.","File Error",[System.Windows.Forms.MessageBoxButtons]::OK,[System.Windows.Forms.MessageBoxIcon]::Error)
         return
-    }   
-    
+    }
+
     Write-Host "--- Opening startnet.cmd and corename.txt for review."
     # Open files in Notepad and block execution until they are closed
     Start-Process notepad.exe -ArgumentList "$mountDir\Windows\System32\startnet.cmd" -Wait
@@ -146,7 +146,7 @@ wpeutil setkeyboardlayout %Clavier%
         
         # Attempt to open the DISM log for more details without blocking the script
         $dismLog = "$env:windir\Logs\DISM\dism.log"
-		Write-Host "--- ERROR open $dismLog for more details"
+        Write-Host "--- ERROR open $dismLog for more details"
         # Exit the script if driver addition fails
     }
 
