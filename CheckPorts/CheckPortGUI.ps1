@@ -171,10 +171,10 @@ function Test-Ports {
         @{ Port = 9593;  Description = "Agent discovery, Software distribution"},         
         @{ Port = 9594;  Description = "Agent discovery and management" },
         @{ Port = 9595;  Description = "Agent discovery and management"}, 
-		@{ Port = 33354;  Description = "Peer Download"},
-		@{ Port = 33355;  Description = "Peer Download"}, 
-		@{ Port = 33370;  Description = "Peer Download"}, 
-		@{ Port = 33371;  Description = "Peer Download"}, 
+	@{ Port = 33354;  Description = "Peer Download"},
+	@{ Port = 33355;  Description = "Peer Download"}, 
+	@{ Port = 33370;  Description = "Peer Download"}, 
+	@{ Port = 33371;  Description = "Peer Download"}, 
         @{ Port = 44343; Description = "WS Remote Control" }
     )
 
