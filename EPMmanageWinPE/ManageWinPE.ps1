@@ -104,17 +104,30 @@ $buttonExecute.Add_Click({
         if ($startnetContent -notmatch '(?i)setkeyboardlayout') {
             # Define the keyboard selection block
             $keyboardBlock = @"
-ECHO 1: Keyboard = FR
-ECHO 2: Keyboard = IT
-ECHO 3: Keyboard = EN
-ECHO 4: Keyboard = CA
-CHOICE /C 1234 /N /T 90 /D 1 /M "Choice keyboard"
+@echo off
+echo 1: Keyboard = FR
+echo 2: Keyboard = IT
+echo 3: Keyboard = EN
+echo 4: Keyboard = CA
+echo 5: Keyboard = DE
+echo 6: Keyboard = ES
+echo 7: Keyboard = IT
+echo 8: Keyboard = PT
+echo 9: Keyboard = PL
+echo 0: Keyboard = RU
 
-echo %ERRORLEVEL%
-IF %ERRORLEVEL% == 1 SET Clavier=040C:0000040C
-IF %ERRORLEVEL% == 2 SET Clavier=0410:00000410
-IF %ERRORLEVEL% == 3 SET Clavier=0409:00000409
-IF %ERRORLEVEL% == 4 SET Clavier=0c0c:00001009
+CHOICE /C 1234567890 /N /T 90 /D 1 /M "Choice keyboard"
+
+if %ERRORLEVEL%==1  set Clavier=040C:0000040C
+if %ERRORLEVEL%==2  set Clavier=0410:00000410
+if %ERRORLEVEL%==3  set Clavier=0409:00000409
+if %ERRORLEVEL%==4  set Clavier=0c0c:00001009
+if %ERRORLEVEL%==5  set Clavier=0407:00000407
+if %ERRORLEVEL%==6  set Clavier=0C0A:0000040A
+if %ERRORLEVEL%==7  set Clavier=0410:00000410
+if %ERRORLEVEL%==8  set Clavier=0816:00000816
+if %ERRORLEVEL%==9  set Clavier=0415:00000415
+if %ERRORLEVEL%==10 set Clavier=0419:00000419
 
 wpeutil setkeyboardlayout %Clavier%
 "@
