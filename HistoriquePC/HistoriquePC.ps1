@@ -1,48 +1,57 @@
-[void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
+Add-Type -AssemblyName PresentationFramework
+
 [xml]$XAML = @'
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="v1.0" Height="132.43" Width="258.527">
-    <Grid>
-    <TextBox HorizontalAlignment="Left" Name= "ComputerName" Height="23" Margin="21,26,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="195"/>
-    <Button Name="GetHistorique" Content="Get Historique PC" HorizontalAlignment="Left" Margin="21,49,0,0" VerticalAlignment="Top" Width="195"/>
+        Title="Historique PC" Height="250" Width="350" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" Background="#F3F3F3">
+    <Grid Margin="10">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+            <Label Content="Nom du PC :" FontSize="14" Margin="5" FontWeight="Bold"/>
+            <TextBox Name="ComputerName" Width="250" Height="25" Margin="5"/>
+            <Button Name="GetHistorique" Content="Obtenir l'historique" Width="250" Height="30" Margin="10"
+                    Background="#0078D7" Foreground="White" FontWeight="Bold"/>
+            <TextBox Name="ResultsBox" Width="300" Height="80" Margin="5"
+                     IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+        </StackPanel>
     </Grid>
 </Window>  
-  
 '@
 
-#Read XAML
-$reader=(New-Object System.Xml.XmlNodeReader $xaml) 
-try{$Form=[Windows.Markup.XamlReader]::Load( $reader )}
-catch{Write-Host "Unable to load Windows.Markup.XamlReader. Some possible causes for this problem include: .NET Framework is missing PowerShell must be launched with PowerShell -sta, invalid XAML code was encountered."; exit}
+# Lire le XAML et générer l'interface
+$reader = (New-Object System.Xml.XmlNodeReader $XAML) 
+try { $Form = [Windows.Markup.XamlReader]::Load($reader) }
+catch { Write-Host "Erreur : Vérifiez votre environnement PowerShell (lancez en mode STA)." ; exit }
 
-#===========================================================================
-# Store Form Objects In PowerShell
-#===========================================================================
-$xaml.SelectNodes("//*[@Name]") | %{Set-Variable -Name ($_.Name) -Value $Form.FindName($_.Name)}
+# Associer les objets XAML aux variables PowerShell
+$XAML.SelectNodes("//*[@Name]") | ForEach-Object { Set-Variable -Name $_.Name -Value $Form.FindName($_.Name) }
 
-$GetHistorique.add_Click({
-    $NomPCRecord = $ComputerName.text
-    $fichier = "record.txt"
-    if (Test-Path $fichier) {Remove-Item $fichier}
-    if ($NomPCRecord -ne "") {
-        $Records = Get-WmiObject -class win32_ReliabilityRecords -computername $NomPCRecord
+# Fonction pour récupérer l'historique
+$GetHistorique.Add_Click({
+    $NomPCRecord = $ComputerName.Text
+    $ResultsBox.Text = "" # Nettoyer la boîte de résultats
+
+    if ($NomPCRecord -eq "") {
+        $ResultsBox.Text = "Veuillez entrer un nom de PC valide."
+        return
+    }
+
+    try {
+        $Records = Get-WmiObject -Class win32_ReliabilityRecords -ComputerName $NomPCRecord -ErrorAction Stop
+        if ($Records.Count -eq 0) {
+            $ResultsBox.Text = "Aucun historique trouvé pour $NomPCRecord."
+            return
+        }
+
+        $ResultsBox.Text = "Historique de $NomPCRecord`n---------------------------"
         foreach ($element in $Records) {
             $Date = $element.ConvertToDateTime($element.TimeGenerated)
-            
-            ADD-content -path $fichier -value $Date
-            ADD-content -path $fichier -value $element.ProductName
-            ADD-content -path $fichier -value $element.SourceName
-            ADD-content -path $fichier -value $element.User
-            ADD-content -path $fichier -value $element.Message
-            ADD-content -path $fichier -value ""
-            
+            $ResultsBox.AppendText("`n[$Date] $($element.ProductName) - $($element.SourceName)`n")
         }
-        
-        start record.txt
-
+    } catch {
+        $ResultsBox.Text = "Erreur de connexion à $NomPCRecord. Vérifiez le nom du PC et les autorisations."
     }
 })
 
-# Display UI object
-$Form.ShowDialog() | out-null
+# Afficher l'interface utilisateur
+$Form.ShowDialog() | Out-Null
