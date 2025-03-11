@@ -1,0 +1,202 @@
+-- Delete from patch history only needs to be run once if the proper thresholds have been set up in the product (Security Activity Tool - Gear icon)
+
+DECLARE @DaysToKeepPatchHistory INTEGER;
+DECLARE @DaysToKeepAuditing INTEGER;
+DECLARE @DaysToKeepSecurityAction INTEGER;
+DECLARE @BatchSize INTEGER;
+DECLARE @Producthistory INTEGER;
+DECLARE @ChangedateHistory INTEGER;
+DECLARE @Loopsize INTEGER;
+DECLARE @RowThreshold INTEGER;
+
+SET @DaysToKeepPatchHistory = 90; --Change 90 to how many days of patching history you want
+SET @DaysToKeepAuditing = 90; --Change 90 to how many days of auditing history you want
+SET @DaysToKeepSecurityAction = 90; --Change 90 to how many days of security actions from EPS you want
+SET @BatchSize = 100000; -- Change to number of records per delete you can make this larger or smaller depending on how much room you have for the transaction logs. 
+SET @Producthistory = 180; -- This will clear out older entries from the ProductComputer table which houses MSI entries. 
+SET @ChangedateHistory = 90; -- Clears out DBO.history these are the history values for an machine.  On older databases the number of entries can cause the clean up statement to lock up. 
+SET @RowThreshold = 500 ---  This value handles the threshold for the delete statement,  At 500 it will run the loop until the table has less than 500 records.  
+WHILE EXISTS
+      (
+          SELECT *
+          FROM  [dbo].[PatchHistory]
+          WHERE [ActionDate] < (GETDATE() - @DaysToKeepPatchHistory) HAVING count(*) > @RowThreshold
+      )
+BEGIN
+    DELETE TOP (@BatchSize)
+    FROM [dbo].[PatchHistory]
+    WHERE   [ActionDate] < (GETDATE() - @DaysToKeepPatchHistory)
+END;
+
+WHILE EXISTS
+      (
+          SELECT *
+          FROM  [dbo].[AuditInstance]
+          WHERE [ModifiedDate] < (GETDATE() - @DaysToKeepAuditing) HAVING count(*) > @RowThreshold
+      )
+BEGIN
+    DELETE TOP (@BatchSize)
+    FROM [dbo].[AuditInstance]
+    WHERE   [ModifiedDate] < (GETDATE() - @DaysToKeepAuditing) 
+END;
+
+WHILE EXISTS
+      (
+          SELECT *
+          FROM  [dbo].[History]
+          WHERE [ChangeDate] < (GETDATE() - @ChangedateHistory) HAVING count(*) > @RowThreshold
+      )
+BEGIN
+    DELETE TOP (@BatchSize)
+    FROM [dbo].[history]
+    WHERE [ChangeDate] < (GETDATE() - @ChangedateHistory)
+END;
+
+WHILE EXISTS
+      (
+          SELECT *
+          FROM  [dbo].[SecurityAction]
+          WHERE [ActionDate] < (GETDATE() - @DaysToKeepSecurityAction) HAVING count(*) > @RowThreshold
+      )
+BEGIN
+    DELETE TOP (@BatchSize)
+    FROM [dbo].[SecurityAction]
+    WHERE   [ActionDate] < (GETDATE() - @DaysToKeepSecurityAction)
+END;
+
+WHILE EXISTS
+      (
+          SELECT *
+          FROM  [dbo].[ProductComputer]
+          WHERE [Entrydate] < (GETDATE() - @Producthistory) HAVING count(*) > @RowThreshold
+      )
+BEGIN
+    DELETE TOP (@BatchSize)
+    FROM [dbo].[ProductComputer]
+    WHERE   [Entrydate] < (GETDATE() - @Producthistory);
+END;
+--Removes FileInfoInstance Entries greater than 180 days. ONLY USE IN EMERGENCY SITUATIONS. Contact Ivanti support before utilizing this line.
+-- WHILE EXISTS
+     -- (
+          --SELECT *
+          --FROM  [dbo].[FileInfoInstance]
+         -- WHERE [FileDate] < (GETDATE() - 180) HAVING count(*) > @RowThreshold
+     --)
+--BEGIN
+    --DELETE TOP (@BatchSize)
+    --FROM [dbo].[FileInfoInstance]
+    --WHERE   [FileDate] < (GETDATE() - 180); --Removes FileInfoInstance Entries greater than 180 days. ONLY USE IN EMERGENCY SITUATIONS. Contact Ivanti support before utilizing this line.
+--END;
+
+
+-- Drop Temporary Tables Created by DA during Vendor Imports
+
+DECLARE @cmd VARCHAR(4000);
+DECLARE [cmds] CURSOR FOR
+SELECT  'drop table [' + [TABLE_NAME] + ']'
+FROM    [INFORMATION_SCHEMA].[TABLES]
+WHERE   [TABLE_NAME] LIKE 'tmp_%';
+
+OPEN [cmds];
+WHILE 1 = 1
+BEGIN
+    FETCH [cmds]
+    INTO @cmd;
+    IF @@fetch_status != 0
+        BREAK;
+    EXEC (@cmd);
+END;
+CLOSE [cmds];
+DEALLOCATE [cmds];
+
+-- Remove orphaned entries from FileInfo 
+WHILE EXISTS
+      (
+          SELECT *
+          FROM  [FileInfo]
+          WHERE [FileSize] <> 1
+                AND [Version] <> 'X'
+                AND [Discovered] = 1
+                AND [FileInfo_Idn] IN
+                    (
+                        SELECT  [a].[FileInfo_Idn]
+                        FROM    [FileInfo] [a]
+                        LEFT OUTER JOIN [FileInfoInstance] [b] ON [a].[FileInfo_Idn] = [b].[FileInfo_Idn]
+                        LEFT OUTER JOIN [ProductFile] [c] ON [a].[FileInfo_Idn] = [c].[FileInfo_Idn]
+                        LEFT OUTER JOIN [FileConnections] [d] ON [a].[FileInfo_Idn] = [d].[FileInfo_Idn]
+                        LEFT OUTER JOIN [TrustedFileInfo] [e] ON [a].[FileInfo_Idn] = [e].[FileInfo_Idn]
+                        LEFT OUTER JOIN [SLM_ProductUsageFile] [f] ON [a].[FileInfo_Idn] = [f].[FileInfo_Idn]
+                        WHERE   [b].[FileInfo_Idn] IS NULL
+                                AND [c].[FileInfo_Idn] IS NULL
+                                AND [d].[FileInfo_Idn] IS NULL
+                                AND [e].[FileInfo_Idn] IS NULL
+                                AND [f].[FileInfo_Idn] IS NULL
+                    ) HAVING count(*) > @RowThreshold
+      )
+BEGIN
+    DELETE TOP (@BatchSize)
+    FROM [FileInfo]
+    WHERE   [FileSize] <> 1
+            AND [Version] <> 'X'
+            AND [Discovered] = 1
+            AND [FileInfo_Idn] IN
+                (
+                    SELECT  [a].[FileInfo_Idn]
+                    FROM    [FileInfo] [a]
+                    LEFT OUTER JOIN [FileInfoInstance] [b] ON [a].[FileInfo_Idn] = [b].[FileInfo_Idn]
+                    LEFT OUTER JOIN [ProductFile] [c] ON [a].[FileInfo_Idn] = [c].[FileInfo_Idn]
+                    LEFT OUTER JOIN [FileConnections] [d] ON [a].[FileInfo_Idn] = [d].[FileInfo_Idn]
+                    LEFT OUTER JOIN [TrustedFileInfo] [e] ON [a].[FileInfo_Idn] = [e].[FileInfo_Idn]
+                    LEFT OUTER JOIN [SLM_ProductUsageFile] [f] ON [a].[FileInfo_Idn] = [f].[FileInfo_Idn]
+                    WHERE   [b].[FileInfo_Idn] IS NULL
+                            AND [c].[FileInfo_Idn] IS NULL
+                            AND [d].[FileInfo_Idn] IS NULL
+                            AND [e].[FileInfo_Idn] IS NULL
+                            AND [f].[FileInfo_Idn] IS NULL
+                );
+END;
+
+--- Clears Unkown items list
+
+TRUNCATE TABLE [METABLOCKED];
+
+--- Changes null device id's to unassigned
+
+
+UPDATE  [Computer]
+SET [DeviceId] = 'Unassigned'
+WHERE [DeviceId] IS NULL;
+
+
+-- Rebuild fragmented indexes
+
+DECLARE @TableName VARCHAR(255);
+DECLARE @sql NVARCHAR(500);
+DECLARE @fillfactor INT;
+SET @fillfactor = 80;
+DECLARE [TableCursor] CURSOR FOR
+SELECT  OBJECT_SCHEMA_NAME([object_id]) + '.' + [name] AS [TableName]
+FROM    [sys].[tables];
+OPEN [TableCursor];
+FETCH NEXT FROM [TableCursor]
+INTO @TableName;
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    SET @sql
+        = N'ALTER INDEX ALL ON ' + @TableName + N' REBUILD WITH (FILLFACTOR = ' + CONVERT(VARCHAR(3), @fillfactor)
+          + N')';
+    EXEC (@sql);
+    FETCH NEXT FROM [TableCursor]
+    INTO @TableName;
+END;
+CLOSE [TableCursor];
+DEALLOCATE [TableCursor];
+GO
+
+--Check for consistency errors
+
+DBCC CHECKDB;
+
+--Run checkpoint to allow logs to be freed
+
+CHECKPOINT;
