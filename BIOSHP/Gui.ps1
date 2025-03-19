@@ -11,7 +11,7 @@ $biosSettings = @{}
 foreach ($Conf in $BiosInfo) {
     $Param = $Conf.Name
     $Valeur = $Conf.Value -join ", "  # Convertit en texte lisible
-$ActiveValue = ($Conf.Value -split ", " | Where-Object {$_ -match "\*"}) -replace "\*", ""
+$ActiveValue = ($Conf.Value -split "," | Where-Object {$_ -match "\*"}) -replace "\*", ""
 
 
     $ActiveValue = $ActiveValue -replace "\*", ""  # Supprime les "*"
