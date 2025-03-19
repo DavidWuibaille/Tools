@@ -1,18 +1,31 @@
 Add-Type -AssemblyName PresentationFramework
 
+# Récupération des valeurs BIOS
+$BiosInfo = Get-WmiObject -Namespace root/hp/instrumentedBIOS -Class hp_biosEnumeration
+
+# Dictionnaire pour stocker les valeurs des paramètres
+$biosSettings = @{}
+
+foreach ($Conf in $BiosInfo) {
+    $Param = $Conf.Name
+    $Valeur = $Conf.Value -join ", "  # Convertit en texte lisible
+    $ActiveValue = ($Conf.Value -match "\*") -join ", "  # Extraction des valeurs actives
+    $ActiveValue = $ActiveValue -replace "\*", ""  # Suppression des "*"
+
+    $biosSettings[$Param] = @{
+        "AllValues" = $Valeur
+        "ActiveValue" = $ActiveValue
+    }
+}
+
 # Création de la fenêtre principale
 $window = New-Object System.Windows.Window
-$window.Title = "Configuration BIOS HP"
-$window.Width = 550
-$window.Height = 450
+$window.Title = "Configuration BIOS HP – État des Composants"
+$window.Width = 600
+$window.Height = 500
 $window.WindowStartupLocation = "CenterScreen"
 $window.FontFamily = "Segoe UI"
 $window.FontSize = 14
-
-# Chargement de l'icône HP (si disponible localement)
-$iconPath = "$env:SystemRoot\System32\shell32.dll"
-$icon = [System.Drawing.Icon]::ExtractAssociatedIcon($iconPath)
-$window.Icon = $icon
 
 # Création du Grid principal
 $grid = New-Object System.Windows.Controls.Grid
@@ -23,7 +36,7 @@ $window.Content = $grid
 $grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition)) # Colonne Nom
 $grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition)) # Colonne Statut
 
-# Ajout des lignes pour les paramètres
+# Liste des paramètres à afficher
 $settings = @(
     "USB Storage Boot"
     "IPv6 during UEFI Boot"
@@ -35,10 +48,8 @@ $settings = @(
     "Secure Boot"
 )
 
-# Ajout des styles
-$statusColor = "Red"  # Couleur des statuts "Unknown"
+# Ajout des lignes pour les paramètres
 $rowIndex = 0
-
 foreach ($setting in $settings) {
     # Nom de la configuration
     $label = New-Object System.Windows.Controls.Label
@@ -49,13 +60,27 @@ foreach ($setting in $settings) {
     [System.Windows.Controls.Grid]::SetColumn($label, 0)
     $grid.Children.Add($label)
 
-    # Statut (Unknown en rouge)
+    # Récupération de la valeur actuelle
+    if ($biosSettings.ContainsKey($setting)) {
+        $ActiveValue = $biosSettings[$setting]["ActiveValue"]
+    } else {
+        $ActiveValue = "Unknown"
+    }
+
+    # Label pour le statut
     $statusLabel = New-Object System.Windows.Controls.Label
-    $statusLabel.Content = "Unknown"
+    $statusLabel.Content = $ActiveValue
     $statusLabel.Margin = "5"
-    $statusLabel.Foreground = $statusColor
     $statusLabel.FontWeight = "Bold"
     $statusLabel.HorizontalAlignment = "Right"
+
+    # Couleur : Vert si une valeur est récupérée, Rouge si "Unknown"
+    if ($ActiveValue -eq "Unknown") {
+        $statusLabel.Foreground = "Red"
+    } else {
+        $statusLabel.Foreground = "Green"
+    }
+
     [System.Windows.Controls.Grid]::SetRow($statusLabel, $rowIndex)
     [System.Windows.Controls.Grid]::SetColumn($statusLabel, 1)
     $grid.Children.Add($statusLabel)
