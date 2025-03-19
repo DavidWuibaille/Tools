@@ -1,6 +1,6 @@
 Add-Type -AssemblyName PresentationFramework
 
-# Expected BIOS values (reference table)
+# Références des valeurs correctes
 $expectedValues = @{
     "USB Storage Boot" = "Disable"
     "IPv6 during UEFI Boot" = "Disable"
@@ -9,52 +9,52 @@ $expectedValues = @{
     "LAN / WLAN Auto Switching" = "Enable"
     "Wake on WLAN" = "Enable"
     "HUB Wake on LAN" = "Enable"
-    "Secure Boot" = "Disable"  # This will not be modified
+    "Secure Boot" = "Disable"
 }
 
-# Retrieve current BIOS settings
+# Récupération des valeurs BIOS
 $BiosInfo = Get-WmiObject -Namespace root/hp/instrumentedBIOS -Class hp_biosEnumeration
-$BiosSetup = Get-WmiObject -Class hp_biossettinginterface -Namespace root/hp/instrumentedBIOS
+$BiosSetup = Get-WmiObject -class hp_biossettinginterface -Namespace root/hp/instrumentedBIOS
 
-# Dictionary to store BIOS settings
+# Dictionnaire pour stocker les valeurs des paramètres
 $biosSettings = @{}
 
 foreach ($Conf in $BiosInfo) {
     $Param = $Conf.Name
-    $Value = $Conf.Value -join ", "  # Convert array to readable text
-    $ActiveValue = ($Conf.Value -split "," | Where-Object {$_ -match "\*"}) -replace "\*", ""  # Extract the active value
+    $Valeur = $Conf.Value -join ", "  # Convertit en texte lisible
+    $ActiveValue = ($Conf.Value -split "," | Where-Object {$_ -match "\*"}) -replace "\*", ""  # Extraire la valeur active
 
     $biosSettings[$Param] = @{
-        "AllValues" = $Value
+        "AllValues" = $Valeur
         "ActiveValue" = $ActiveValue
     }
 }
 
-# Create the main window
+# Création de la fenêtre principale
 $window = New-Object System.Windows.Window
-$window.Title = "HP BIOS Configuration - Component Status"
+$window.Title = "Configuration BIOS HP - Etat des Composants"
 $window.Width = 550
 $window.Height = 450
 $window.WindowStartupLocation = "CenterScreen"
 $window.FontFamily = "Segoe UI"
 $window.FontSize = 14
 
-# Create the main Grid
+# Création du Grid principal
 $grid = New-Object System.Windows.Controls.Grid
 $grid.Margin = "15"
 $window.Content = $grid
 
-# Define columns for the Grid
-$grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition)) # Configuration Name
-$grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition)) # Status
+# Ajout des colonnes au Grid
+$grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition)) # Colonne Nom
+$grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition)) # Colonne Statut
 
-# Get the list of settings to display
+# Liste des paramètres à afficher
 $settings = $expectedValues.Keys
 
-# Add rows for each setting
+# Ajout des lignes pour les paramètres
 $rowIndex = 0
 foreach ($setting in $settings) {
-    # Label for the configuration name
+    # Nom de la configuration
     $label = New-Object System.Windows.Controls.Label
     $label.Content = $setting
     $label.Margin = "5"
@@ -63,21 +63,21 @@ foreach ($setting in $settings) {
     [System.Windows.Controls.Grid]::SetColumn($label, 0)
     $grid.Children.Add($label)
 
-    # Retrieve the current value
+    # Récupération de la valeur actuelle
     if ($biosSettings.ContainsKey($setting)) {
         $ActiveValue = $biosSettings[$setting]["ActiveValue"]
     } else {
         $ActiveValue = "Unknown"
     }
 
-    # Compare with expected values and set color
+    # Vérification de la conformité
     if ($expectedValues.ContainsKey($setting) -and $ActiveValue -eq $expectedValues[$setting]) {
-        $color = "Green"  # Correct value => Green
+        $color = "Green"  # Valeur correcte => vert
     } else {
-        $color = "Red"  # Incorrect value => Red
+        $color = "Red"  # Valeur incorrecte => rouge
     }
 
-    # Label for the status
+    # Label pour le statut
     $statusLabel = New-Object System.Windows.Controls.Label
     $statusLabel.Content = $ActiveValue
     $statusLabel.Margin = "5"
@@ -92,21 +92,21 @@ foreach ($setting in $settings) {
     $rowIndex++
 }
 
-# Dynamically add rows to the Grid
+# Ajout des lignes dynamiquement dans le Grid
 for ($i = 0; $i -lt $settings.Count; $i++) {
     $grid.RowDefinitions.Add((New-Object System.Windows.Controls.RowDefinition))
 }
 
-# Visual separator
+# Séparateur visuel
 $separator = New-Object System.Windows.Controls.Separator
 $separator.Margin = "5,10,5,10"
 [System.Windows.Controls.Grid]::SetRow($separator, $settings.Count)
 [System.Windows.Controls.Grid]::SetColumnSpan($separator, 2)
 $grid.Children.Add($separator)
 
-# "Configure" button
+# Bouton Configurer
 $configureButton = New-Object System.Windows.Controls.Button
-$configureButton.Content = "Configure"
+$configureButton.Content = "Configurer"
 $configureButton.Margin = "5"
 $configureButton.Width = 150
 $configureButton.Height = 40
@@ -124,18 +124,11 @@ $configureButton.BorderBrush = "Black"
 [System.Windows.Controls.Grid]::SetColumnSpan($configureButton, 2)
 $grid.Children.Add($configureButton)
 
-# Action when clicking the "Configure" button
+# Gestion du clic sur le bouton Configurer
 $configureButton.Add_Click({
-    $errors = @()  # Store errors
+    $errors = @()  # Stocker les erreurs
 
     foreach ($setting in $settings) {
-        # Exclude Secure Boot from modifications
-        if ($setting -eq "Secure Boot") {
-            Write-Host "Skipping Secure Boot modification."
-            continue
-        }
-
-        # Check if the setting exists and needs modification
         if ($biosSettings.ContainsKey($setting)) {
             $currentValue = $biosSettings[$setting]["ActiveValue"]
             $expectedValue = $expectedValues[$setting]
@@ -143,26 +136,25 @@ $configureButton.Add_Click({
             if ($currentValue -ne $expectedValue) {
                 try {
                     $BiosSetup.SetBIOSSetting($setting, $expectedValue)
-                    Write-Host "Modified $setting: $currentValue -> $expectedValue"
+                    Write-Host "Modification de $setting : $currentValue -> $expectedValue"
                 } catch {
-                    $errors += "Error modifying $setting"
+                    $errors += "Erreur lors de la modification de $setting"
                 }
             }
         } else {
-            $errors += "Setting $setting not found in BIOS"
+            $errors += "Le paramètre $setting n'existe pas dans le BIOS"
         }
     }
 
-    # Show message box with success or error message
     if ($errors.Count -gt 0) {
-        [System.Windows.MessageBox]::Show("Some errors occurred:`n`n$($errors -join "`n")", "Error", "OK", "Error")
+        [System.Windows.MessageBox]::Show("Certaines erreurs ont été rencontrées:`n`n$($errors -join "`n")", "Erreur", "OK", "Error")
     } else {
-        [System.Windows.MessageBox]::Show("All settings have been successfully configured.", "Success", "OK", "Information")
+        [System.Windows.MessageBox]::Show("Tous les paramètres ont été configurés avec succès.", "Succès", "OK", "Information")
     }
 })
 
-# Add an extra row for the "Configure" button
+# Ajout d'une ligne pour le bouton Configurer
 $grid.RowDefinitions.Add((New-Object System.Windows.Controls.RowDefinition))
 
-# Show the window
+# Affichage de la fenêtre
 $window.ShowDialog()
