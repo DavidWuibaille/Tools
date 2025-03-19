@@ -159,7 +159,7 @@ $configureButton.Add_Click({
             if ($currentValue -ne $expectedValue) {
                 try {
                     $BiosSetup.SetBIOSSetting($setting, $expectedValue)
-                    Write-Host "Modified $setting: $currentValue -> $expectedValue"
+                    Write-Host "Modified $setting -> $expectedValue"
                     $changesMade = $true  # A change was made
                 } catch {
                     $errors += "Error modifying $setting"
