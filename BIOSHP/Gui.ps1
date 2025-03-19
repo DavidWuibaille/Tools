@@ -133,7 +133,7 @@ $configureButton.Add_Click({
             if ($currentValue -ne $expectedValue) {
                 try {
                     $BiosSetup.SetBIOSSetting($setting, $expectedValue)
-                    Write-Host "Modified $setting: $currentValue -> $expectedValue"
+                    Write-Host "Modified $setting : $currentValue -> $expectedValue"
                     $changesMade = $true  # A change was made
                 } catch {
                     $errors += "Error modifying $setting"
@@ -147,8 +147,11 @@ $configureButton.Add_Click({
     # If changes were made, restart PowerShell
     if ($changesMade) {
         [System.Windows.MessageBox]::Show("Settings updated. Restarting PowerShell...", "Restart", "OK", "Information")
-        Start-Process "powershell" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -WindowStyle Normal
-        exit  # Close the current script
+$window.Close()  # Close the GUI window before restarting PowerShell
+Start-Sleep -Seconds 1  # Ensure the window has time to close
+Start-Process "powershell" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -WindowStyle Normal
+exit
+
     } else {
         [System.Windows.MessageBox]::Show("No changes were necessary.", "Success", "OK", "Information")
     }
