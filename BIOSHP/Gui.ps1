@@ -1,3 +1,5 @@
+# V2
+
 Add-Type -AssemblyName PresentationFramework
 
 # Récupération des valeurs BIOS
