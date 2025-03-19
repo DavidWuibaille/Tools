@@ -19,7 +19,7 @@ function Get-BIOSValues {
     foreach ($Conf in $BiosInfo) {
         $Param = $Conf.Name
         $Value = $Conf.Value -join ", "  # Convert array to readable text
-        $ActiveValue = ($Conf.Value -split "," | Where-Object {$_ -match "\*"}) -replace "\*", ""  # Extract the active value
+        $ActiveValue = ($Conf.Value -split "," | Where-Object {$_ -match "\*"}) -replace "\*", ""  # Extract active value
         $biosSettings[$Param] = @{
             "AllValues" = $Value
             "ActiveValue" = $ActiveValue
@@ -28,7 +28,7 @@ function Get-BIOSValues {
     return $biosSettings
 }
 
-# Retrieve current BIOS settings
+# Retrieve initial BIOS settings
 $biosSettings = Get-BIOSValues
 
 # Create the main window
@@ -143,6 +143,7 @@ $grid.Children.Add($configureButton)
 
 # Action when clicking the "Configure" button
 $configureButton.Add_Click({
+    $biosSettings = Get-BIOSValues  # Refresh BIOS values before making changes
     $errors = @()  # Store errors
 
     foreach ($setting in $settings) {
