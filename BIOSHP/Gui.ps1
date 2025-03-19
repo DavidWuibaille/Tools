@@ -1,9 +1,20 @@
-# V2
-
 Add-Type -AssemblyName PresentationFramework
+
+# Références des valeurs correctes
+$expectedValues = @{
+    "USB Storage Boot" = "Disable"
+    "IPv6 during UEFI Boot" = "Disable"
+    "Prompt on Memory Size Change" = "Disable"
+    "Embedded LAN Controller" = "Disable"
+    "LAN / WLAN Auto Switching" = "Enable"
+    "Wake on WLAN" = "Enable"
+    "HUB Wake on LAN" = "Enable"
+    "Secure Boot" = "Disable"
+}
 
 # Récupération des valeurs BIOS
 $BiosInfo = Get-WmiObject -Namespace root/hp/instrumentedBIOS -Class hp_biosEnumeration
+$BiosSetup = Get-WmiObject -class hp_biossettinginterface -Namespace root/hp/instrumentedBIOS
 
 # Dictionnaire pour stocker les valeurs des paramètres
 $biosSettings = @{}
@@ -11,10 +22,7 @@ $biosSettings = @{}
 foreach ($Conf in $BiosInfo) {
     $Param = $Conf.Name
     $Valeur = $Conf.Value -join ", "  # Convertit en texte lisible
-$ActiveValue = ($Conf.Value -split "," | Where-Object {$_ -match "\*"}) -replace "\*", ""
-
-
-    $ActiveValue = $ActiveValue -replace "\*", ""  # Supprime les "*"
+    $ActiveValue = ($Conf.Value -split "," | Where-Object {$_ -match "\*"}) -replace "\*", ""  # Extraire la valeur active
 
     $biosSettings[$Param] = @{
         "AllValues" = $Valeur
@@ -41,16 +49,7 @@ $grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition
 $grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition)) # Colonne Statut
 
 # Liste des paramètres à afficher
-$settings = @(
-    "USB Storage Boot"
-    "IPv6 during UEFI Boot"
-    "Prompt on Memory Size Change"
-    "Embedded LAN Controller"
-    "LAN / WLAN Auto Switching"
-    "Wake on WLAN"
-    "HUB Wake on LAN"
-    "Secure Boot"
-)
+$settings = $expectedValues.Keys
 
 # Ajout des lignes pour les paramètres
 $rowIndex = 0
@@ -71,19 +70,20 @@ foreach ($setting in $settings) {
         $ActiveValue = "Unknown"
     }
 
+    # Vérification de la conformité
+    if ($expectedValues.ContainsKey($setting) -and $ActiveValue -eq $expectedValues[$setting]) {
+        $color = "Green"  # Valeur correcte => vert
+    } else {
+        $color = "Red"  # Valeur incorrecte => rouge
+    }
+
     # Label pour le statut
     $statusLabel = New-Object System.Windows.Controls.Label
     $statusLabel.Content = $ActiveValue
     $statusLabel.Margin = "5"
     $statusLabel.FontWeight = "Bold"
     $statusLabel.HorizontalAlignment = "Right"
-
-    # Couleur : Vert si une valeur est récupérée, Rouge si "Unknown"
-    if ($ActiveValue -eq "Unknown") {
-        $statusLabel.Foreground = "Red"
-    } else {
-        $statusLabel.Foreground = "Green"
-    }
+    $statusLabel.Foreground = $color
 
     [System.Windows.Controls.Grid]::SetRow($statusLabel, $rowIndex)
     [System.Windows.Controls.Grid]::SetColumn($statusLabel, 1)
@@ -126,7 +126,31 @@ $grid.Children.Add($configureButton)
 
 # Gestion du clic sur le bouton Configurer
 $configureButton.Add_Click({
-    [System.Windows.MessageBox]::Show("Acces a la configuration BIOS en cours de developpement.", "Information", "OK", "Information")
+    $errors = @()  # Stocker les erreurs
+
+    foreach ($setting in $settings) {
+        if ($biosSettings.ContainsKey($setting)) {
+            $currentValue = $biosSettings[$setting]["ActiveValue"]
+            $expectedValue = $expectedValues[$setting]
+
+            if ($currentValue -ne $expectedValue) {
+                try {
+                    $BiosSetup.SetBIOSSetting($setting, $expectedValue)
+                    Write-Host "Modification de $setting : $currentValue -> $expectedValue"
+                } catch {
+                    $errors += "Erreur lors de la modification de $setting"
+                }
+            }
+        } else {
+            $errors += "Le paramètre $setting n'existe pas dans le BIOS"
+        }
+    }
+
+    if ($errors.Count -gt 0) {
+        [System.Windows.MessageBox]::Show("Certaines erreurs ont été rencontrées:`n`n$($errors -join "`n")", "Erreur", "OK", "Error")
+    } else {
+        [System.Windows.MessageBox]::Show("Tous les paramètres ont été configurés avec succès.", "Succès", "OK", "Information")
+    }
 })
 
 # Ajout d'une ligne pour le bouton Configurer
