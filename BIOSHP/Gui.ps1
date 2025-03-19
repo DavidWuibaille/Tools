@@ -12,23 +12,24 @@ $expectedValues = @{
     "Secure Boot" = "Disable"  # This will not be modified
 }
 
-# Retrieve current BIOS settings
-$BiosInfo = Get-WmiObject -Namespace root/hp/instrumentedBIOS -Class hp_biosEnumeration
-$BiosSetup = Get-WmiObject -Class hp_biossettinginterface -Namespace root/hp/instrumentedBIOS
-
-# Dictionary to store BIOS settings
-$biosSettings = @{}
-
-foreach ($Conf in $BiosInfo) {
-    $Param = $Conf.Name
-    $Value = $Conf.Value -join ", "  # Convert array to readable text
-    $ActiveValue = ($Conf.Value -split "," | Where-Object {$_ -match "\*"}) -replace "\*", ""  # Extract the active value
-
-    $biosSettings[$Param] = @{
-        "AllValues" = $Value
-        "ActiveValue" = $ActiveValue
+# Function to fetch BIOS settings
+function Get-BIOSValues {
+    $biosSettings = @{}
+    $BiosInfo = Get-WmiObject -Namespace root/hp/instrumentedBIOS -Class hp_biosEnumeration
+    foreach ($Conf in $BiosInfo) {
+        $Param = $Conf.Name
+        $Value = $Conf.Value -join ", "  # Convert array to readable text
+        $ActiveValue = ($Conf.Value -split "," | Where-Object {$_ -match "\*"}) -replace "\*", ""  # Extract the active value
+        $biosSettings[$Param] = @{
+            "AllValues" = $Value
+            "ActiveValue" = $ActiveValue
+        }
     }
+    return $biosSettings
 }
+
+# Retrieve current BIOS settings
+$biosSettings = Get-BIOSValues
 
 # Create the main window
 $window = New-Object System.Windows.Window
@@ -50,6 +51,25 @@ $grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition
 
 # Get the list of settings to display
 $settings = $expectedValues.Keys
+$statusLabels = @{}  # Dictionary to store UI labels
+
+# Function to refresh the UI with updated values
+function Refresh-UI {
+    $biosSettings = Get-BIOSValues  # Re-fetch BIOS values
+    foreach ($setting in $settings) {
+        if ($biosSettings.ContainsKey($setting)) {
+            $ActiveValue = $biosSettings[$setting]["ActiveValue"]
+        } else {
+            $ActiveValue = "Unknown"
+        }
+        # Check if the value matches the expected setting
+        $color = if ($expectedValues.ContainsKey($setting) -and $ActiveValue -eq $expectedValues[$setting]) { "Green" } else { "Red" }
+        
+        # Update the UI Label dynamically
+        $statusLabels[$setting].Content = $ActiveValue
+        $statusLabels[$setting].Foreground = $color
+    }
+}
 
 # Add rows for each setting
 $rowIndex = 0
@@ -71,11 +91,7 @@ foreach ($setting in $settings) {
     }
 
     # Compare with expected values and set color
-    if ($expectedValues.ContainsKey($setting) -and $ActiveValue -eq $expectedValues[$setting]) {
-        $color = "Green"  # Correct value => Green
-    } else {
-        $color = "Red"  # Incorrect value => Red
-    }
+    $color = if ($expectedValues.ContainsKey($setting) -and $ActiveValue -eq $expectedValues[$setting]) { "Green" } else { "Red" }
 
     # Label for the status
     $statusLabel = New-Object System.Windows.Controls.Label
@@ -84,6 +100,7 @@ foreach ($setting in $settings) {
     $statusLabel.FontWeight = "Bold"
     $statusLabel.HorizontalAlignment = "Right"
     $statusLabel.Foreground = $color
+    $statusLabels[$setting] = $statusLabel  # Store label reference for later update
 
     [System.Windows.Controls.Grid]::SetRow($statusLabel, $rowIndex)
     [System.Windows.Controls.Grid]::SetColumn($statusLabel, 1)
@@ -152,6 +169,9 @@ $configureButton.Add_Click({
             $errors += "Setting $setting not found in BIOS"
         }
     }
+
+    # Refresh UI after modifications
+    Refresh-UI
 
     # Show message box with success or error message
     if ($errors.Count -gt 0) {
