@@ -1,6 +1,6 @@
 Add-Type -AssemblyName PresentationFramework
 
-# Expected BIOS values (reference table)
+# Expected BIOS values
 $expectedValues = @{
     "USB Storage Boot" = "Disable"
     "IPv6 during UEFI Boot" = "Disable"
@@ -12,23 +12,27 @@ $expectedValues = @{
     "Secure Boot" = "Disable"
 }
 
-# Retrieve BIOS values
-$BiosInfo = Get-WmiObject -Namespace root/hp/instrumentedBIOS -Class hp_biosEnumeration
-$BiosSetup = Get-WmiObject -Class hp_biossettinginterface -Namespace root/hp/instrumentedBIOS
+# Function to retrieve BIOS settings
+function Get-BIOSValues {
+    $biosSettings = @{}
+    $BiosInfo = Get-WmiObject -Namespace root/hp/instrumentedBIOS -Class hp_biosEnumeration
 
-# Store BIOS settings in a dictionary
-$biosSettings = @{}
+    foreach ($Conf in $BiosInfo) {
+        $Param = $Conf.Name
+        $Value = $Conf.Value -join ", "  # Convert array to text
+        $ActiveValue = ($Conf.Value -split "," | Where-Object {$_ -match "\*"}) -replace "\*", ""  # Extract active value
 
-foreach ($Conf in $BiosInfo) {
-    $Param = $Conf.Name
-    $Value = $Conf.Value -join ", "  # Convert to readable text
-    $ActiveValue = ($Conf.Value -split "," | Where-Object {$_ -match "\*"}) -replace "\*", ""  # Extract active value
-
-    $biosSettings[$Param] = @{
-        "AllValues" = $Value
-        "ActiveValue" = $ActiveValue
+        $biosSettings[$Param] = @{
+            "AllValues" = $Value
+            "ActiveValue" = $ActiveValue
+        }
     }
+    return $biosSettings
 }
+
+# Retrieve initial BIOS settings
+$BiosSetup = Get-WmiObject -Class hp_biossettinginterface -Namespace root/hp/instrumentedBIOS
+$biosSettings = Get-BIOSValues
 
 # Create main window
 $window = New-Object System.Windows.Window
@@ -39,17 +43,38 @@ $window.WindowStartupLocation = "CenterScreen"
 $window.FontFamily = "Segoe UI"
 $window.FontSize = 14
 
-# Create main grid
+# Create grid
 $grid = New-Object System.Windows.Controls.Grid
 $grid.Margin = "15"
 $window.Content = $grid
 
 # Define grid columns
-$grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition)) # Name column
-$grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition)) # Status column
+$grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition)) # Configuration Name
+$grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition)) # Status
 
-# List of settings to display
+# Settings list
 $settings = $expectedValues.Keys
+$statusLabels = @{}  # Store UI labels for dynamic updates
+
+# Function to refresh the UI with updated BIOS values
+function Refresh-UI {
+    $biosSettings = Get-BIOSValues  # Retrieve latest BIOS values
+
+    foreach ($setting in $settings) {
+        if ($biosSettings.ContainsKey($setting)) {
+            $ActiveValue = $biosSettings[$setting]["ActiveValue"]
+        } else {
+            $ActiveValue = "Unknown"
+        }
+
+        # Check if the value matches the expected setting
+        $color = if ($expectedValues.ContainsKey($setting) -and $ActiveValue -eq $expectedValues[$setting]) { "Green" } else { "Red" }
+
+        # Update the UI dynamically
+        $statusLabels[$setting].Content = $ActiveValue
+        $statusLabels[$setting].Foreground = $color
+    }
+}
 
 # Add rows for each setting
 $rowIndex = 0
@@ -63,14 +88,14 @@ foreach ($setting in $settings) {
     [System.Windows.Controls.Grid]::SetColumn($label, 0)
     $grid.Children.Add($label)
 
-    # Get the current value
+    # Get current value
     if ($biosSettings.ContainsKey($setting)) {
         $ActiveValue = $biosSettings[$setting]["ActiveValue"]
     } else {
         $ActiveValue = "Unknown"
     }
 
-    # Check compliance
+    # Compare with expected values
     $color = if ($expectedValues.ContainsKey($setting) -and $ActiveValue -eq $expectedValues[$setting]) { "Green" } else { "Red" }
 
     # Status label
@@ -80,6 +105,7 @@ foreach ($setting in $settings) {
     $statusLabel.FontWeight = "Bold"
     $statusLabel.HorizontalAlignment = "Right"
     $statusLabel.Foreground = $color
+    $statusLabels[$setting] = $statusLabel  # Store reference for later updates
 
     [System.Windows.Controls.Grid]::SetRow($statusLabel, $rowIndex)
     [System.Windows.Controls.Grid]::SetColumn($statusLabel, 1)
@@ -88,7 +114,7 @@ foreach ($setting in $settings) {
     $rowIndex++
 }
 
-# Dynamically add rows to grid
+# Add rows dynamically
 for ($i = 0; $i -lt $settings.Count; $i++) {
     $grid.RowDefinitions.Add((New-Object System.Windows.Controls.RowDefinition))
 }
@@ -100,7 +126,7 @@ $separator.Margin = "5,10,5,10"
 [System.Windows.Controls.Grid]::SetColumnSpan($separator, 2)
 $grid.Children.Add($separator)
 
-# Configure button
+# "Configure" button
 $configureButton = New-Object System.Windows.Controls.Button
 $configureButton.Content = "Configure"
 $configureButton.Margin = "5"
@@ -123,7 +149,7 @@ $grid.Children.Add($configureButton)
 # Handle "Configure" button click
 $configureButton.Add_Click({
     $errors = @()  # Store errors
-    $changesMade = $false  # Track if any settings were changed
+    $changesMade = $false  # Track changes
 
     foreach ($setting in $settings) {
         if ($biosSettings.ContainsKey($setting)) {
@@ -133,7 +159,7 @@ $configureButton.Add_Click({
             if ($currentValue -ne $expectedValue) {
                 try {
                     $BiosSetup.SetBIOSSetting($setting, $expectedValue)
-                    Write-Host "Modified $setting : $currentValue -> $expectedValue"
+                    Write-Host "Modified $setting: $currentValue -> $expectedValue"
                     $changesMade = $true  # A change was made
                 } catch {
                     $errors += "Error modifying $setting"
@@ -144,21 +170,21 @@ $configureButton.Add_Click({
         }
     }
 
-    # If changes were made, restart PowerShell
-    if ($changesMade) {
-        [System.Windows.MessageBox]::Show("Settings updated. Restarting PowerShell...", "Restart", "OK", "Information")
-$window.Close()  # Close the GUI window before restarting PowerShell
-Start-Sleep -Seconds 1  # Ensure the window has time to close
-Start-Process "powershell" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -WindowStyle Normal
-exit
+    # Refresh UI after modifications
+    Refresh-UI
 
+    # Show message with success or errors
+    if ($errors.Count -gt 0) {
+        [System.Windows.MessageBox]::Show("Some errors occurred:`n`n$($errors -join "`n")", "Error", "OK", "Error")
+    } elseif ($changesMade) {
+        [System.Windows.MessageBox]::Show("All settings have been successfully configured and updated in the interface.", "Success", "OK", "Information")
     } else {
         [System.Windows.MessageBox]::Show("No changes were necessary.", "Success", "OK", "Information")
     }
 })
 
-# Add a row for the "Configure" button
+# Add extra row for the "Configure" button
 $grid.RowDefinitions.Add((New-Object System.Windows.Controls.RowDefinition))
 
-# Show window
+# Show the window
 $window.ShowDialog()
