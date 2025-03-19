@@ -9,8 +9,8 @@ $biosSettings = @{}
 foreach ($Conf in $BiosInfo) {
     $Param = $Conf.Name
     $Valeur = $Conf.Value -join ", "  # Convertit en texte lisible
-    $ActiveValue = ($Conf.Value -match "\*") -join ", "  # Extraction des valeurs actives
-    $ActiveValue = $ActiveValue -replace "\*", ""  # Suppression des "*"
+    $ActiveValue = ($Conf.Value -like "*`**") -join ", "  # Récupère uniquement les valeurs qui contiennent "*"
+    $ActiveValue = $ActiveValue -replace "\*", ""  # Supprime les "*"
 
     $biosSettings[$Param] = @{
         "AllValues" = $Valeur
@@ -20,9 +20,9 @@ foreach ($Conf in $BiosInfo) {
 
 # Création de la fenêtre principale
 $window = New-Object System.Windows.Window
-$window.Title = "Configuration BIOS HP – État des Composants"
-$window.Width = 600
-$window.Height = 500
+$window.Title = "Configuration BIOS HP - Etat des Composants"
+$window.Width = 550
+$window.Height = 450
 $window.WindowStartupLocation = "CenterScreen"
 $window.FontFamily = "Segoe UI"
 $window.FontSize = 14
@@ -100,7 +100,7 @@ $separator.Margin = "5,10,5,10"
 [System.Windows.Controls.Grid]::SetColumnSpan($separator, 2)
 $grid.Children.Add($separator)
 
-# Bouton Configurer (design amélioré)
+# Bouton Configurer
 $configureButton = New-Object System.Windows.Controls.Button
 $configureButton.Content = "Configurer"
 $configureButton.Margin = "5"
@@ -122,7 +122,7 @@ $grid.Children.Add($configureButton)
 
 # Gestion du clic sur le bouton Configurer
 $configureButton.Add_Click({
-    [System.Windows.MessageBox]::Show("Accès à la configuration BIOS en cours de développement.", "Information", "OK", "Information")
+    [System.Windows.MessageBox]::Show("Acces a la configuration BIOS en cours de developpement.", "Information", "OK", "Information")
 })
 
 # Ajout d'une ligne pour le bouton Configurer
