@@ -1,4 +1,3 @@
-#ert
 Add-Type -AssemblyName PresentationFramework
 
 # Références des valeurs correctes
